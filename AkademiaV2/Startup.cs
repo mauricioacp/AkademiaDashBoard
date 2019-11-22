@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AkademiaV2.Models;
+using AkademiaV2.Services;
 
 namespace AkademiaV2
 {
@@ -28,14 +29,17 @@ namespace AkademiaV2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<AkademiaSystem>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<AkademiaSystem>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddTransient<IAlumnos, AlumnosServices>(); 
+            services.AddTransient<IColaboradores,ColaboradoresServices>();
+            services.AddTransient<ITalleres,TalleresServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

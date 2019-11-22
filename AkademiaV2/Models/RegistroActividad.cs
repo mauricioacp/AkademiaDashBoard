@@ -7,7 +7,8 @@ namespace AkademiaV2.Models
 {
     public class RegistroActividad
     {
+        public int Id { get; set; }
         public int ColaboradoresId{ get; set; }
-        public Colaboradores Colaboradores{ get; set; }
+        public AppUser AppUser{ get; set; }
     }
 }

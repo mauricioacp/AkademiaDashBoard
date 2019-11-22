@@ -4,14 +4,16 @@ using AkademiaV2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AkademiaV2.Data.Migrations
 {
     [DbContext(typeof(AkademiaSystem))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191121150802_registrosactividad")]
+    partial class registrosactividad
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,9 +73,6 @@ namespace AkademiaV2.Data.Migrations
                     b.Property<string>("CartaMotivacional")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ColaboradoresId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Comentarios")
                         .HasColumnType("nvarchar(max)");
 
@@ -82,9 +81,6 @@ namespace AkademiaV2.Data.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Entrevista")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("FechaNacimiento")
@@ -106,8 +102,6 @@ namespace AkademiaV2.Data.Migrations
                     b.HasIndex("AkademiaId");
 
                     b.HasIndex("AlumnosTalleresId");
-
-                    b.HasIndex("ColaboradoresId");
 
                     b.ToTable("Alumnos");
                 });
@@ -138,6 +132,7 @@ namespace AkademiaV2.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Apellidos")
+                        .IsRequired()
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
@@ -162,6 +157,7 @@ namespace AkademiaV2.Data.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Nombre")
+                        .IsRequired()
                         .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
@@ -291,20 +287,17 @@ namespace AkademiaV2.Data.Migrations
                     b.Property<string>("CartaMotivacional")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CloudCarpetaPrincipal")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("ColaboradoresTalleresId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Comentarios")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Edicion")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Entrevista")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("FechaNacimiento")
@@ -414,7 +407,7 @@ namespace AkademiaV2.Data.Migrations
                     b.Property<int?>("AkademiaId")
                         .HasColumnType("int");
 
-                    b.Property<string>("CarpetaPrincipal")
+                    b.Property<string>("Comentarios")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Descripcion")
@@ -427,7 +420,7 @@ namespace AkademiaV2.Data.Migrations
                     b.Property<string>("Evaluaciones")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("FechaTaller")
+                    b.Property<DateTime>("FechaNacimiento")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Imagen")
@@ -591,10 +584,6 @@ namespace AkademiaV2.Data.Migrations
                     b.HasOne("AkademiaV2.Models.AlumnosTalleres", "AlumnosTalleres")
                         .WithMany("Alumnos")
                         .HasForeignKey("AlumnosTalleresId");
-
-                    b.HasOne("AkademiaV2.Models.Colaboradores", "Colaboradores")
-                        .WithMany()
-                        .HasForeignKey("ColaboradoresId");
                 });
 
             modelBuilder.Entity("AkademiaV2.Models.AlumnosTalleres", b =>

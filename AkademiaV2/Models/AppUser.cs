@@ -8,12 +8,10 @@ using System.Threading.Tasks;
 namespace AkademiaV2.Models
 {
     public class AppUser:IdentityUser
-    {
-        [Required]
+    {     
         [DataType(DataType.Text)]
         [MaxLength(30)]
-        public string Nombre { get; set; }
-        [Required(ErrorMessage = "Ingrese sus Apellidos")]
+        public string Nombre { get; set; }      
         [DataType(DataType.Text)]
         [MaxLength(50)]
         public string Apellidos { get; set; }

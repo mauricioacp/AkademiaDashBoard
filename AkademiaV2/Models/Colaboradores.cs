@@ -21,13 +21,21 @@ namespace AkademiaV2.Models
         [Required]
         public string Telefono { get; set; }
         public string CartaMotivacional { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime FechaNacimiento { get; set; }
-        public string Comentarios { get; set; }
+        [Display(Name = "Cloud: Carpeta Principal")]
+        public string CloudCarpetaPrincipal { get; set; }//Carpeta Principal
         [Required(ErrorMessage = "Introduzca la Edición Actual de su Delegación")]
         public int Edicion { get; set; }
-        public List<ColaboradoresTalleres> ColaboradoresTalleres { get; set; }
+        public ColaboradoresTalleres ColaboradoresTalleres { get; set; }
         public List<Sesiones> Sesiones { get; set; }
         public Akademia Akademia { get; set; }
+        [Display(Name = "Tipo:" +
+            "\n-Facilitador"+
+            "\n-Acompañante"+
+            "\n-Ambos")]
         public string TipoColaborador { get; set; }
+        public string Entrevista { get; set; }
     }
 }

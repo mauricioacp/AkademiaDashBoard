@@ -49,11 +49,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="FechaNacimiento" class="control-label"></label>
-                <input asp-for="FechaNacimiento" class="form-control" />
+                <input asp-for="FechaNacimiento" type="date" asp-format="{0:d}" class="form-control" />
                 <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
             </div>
             <div class="form-group">
-             
+                <label asp-for="Akademia.Id" class="control-label"></label>
                 <input type="hidden" asp-for="Akademia.Id" value="1" class="form-control" />
                 <span asp-validation-for="Akademia.Id" class="text-danger"></span>
             </div>

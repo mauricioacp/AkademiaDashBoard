@@ -24,7 +24,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="FechaTaller" class="control-label"></label>
-                <input asp-for="FechaTaller" class="form-control" />
+                <input asp-for="FechaTaller" type="date" asp-format="{0:d}" class="form-control" />
                 <span asp-validation-for="FechaTaller" class="text-danger"></span>
             </div>
             <div class="form-group">

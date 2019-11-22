@@ -24,6 +24,7 @@ namespace AkademiaV2.Services
         public async Task CreateAlumnoAsync(Alumnos alumnos)
         {
             await _context.AddAsync(alumnos);
+            await _context.Alumnos.Include(x => x.Colaboradores).ToListAsync();
             await _context.SaveChangesAsync();
         }
 

@@ -23,7 +23,7 @@ namespace AkademiaV2.Models
         [DataType(DataType.Text)]
         public string Telefono { get; set; }
         public string CartaMotivacional { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        [Display(Name = "Fecha Nacimiento")]
         public DateTime FechaNacimiento { get; set; }
         public string Comentarios { get; set; }
         [Required(ErrorMessage = "Introduzca la Edición Actual de su Delegación")]
@@ -31,7 +31,7 @@ namespace AkademiaV2.Models
         public AlumnosTalleres AlumnosTalleres { get; set; }
         public List<Sesiones> Sesiones { get; set; }
         public Akademia Akademia { get; set; }
-        [Display(Name = "Acceso Entrevista")]
+        [Display(Name = "Cloud Link: Entrevista")]
         public string Entrevista { get; set; }
         public Colaboradores Colaboradores { get; set; }
     }

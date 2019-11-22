@@ -9,7 +9,7 @@ namespace AkademiaV2.Models
     public class Sesiones
     {
         public int Id { get; set; }
-        public DateTime FechaNacimiento { get; set; }
+        public DateTime FechaSesion { get; set; }
         public string Evaluacion { get; set; }
         public string Comentario { get; set; }
         [Required(ErrorMessage = "Introduzca la Edición Actual de su Delegación")]

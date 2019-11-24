@@ -36,7 +36,8 @@ namespace AkademiaV2.Services
 
         public async Task<List<Akademia>> GetAkademiaAsync()
         {
-            return await _context.Akademia.ToListAsync();
+            var akademia = await _context.Akademia.Include(o => o.Colaboradores).ToListAsync();
+            return akademia;
         }
 
         public bool AkademiaExists(int id)

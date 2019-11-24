@@ -4,7 +4,107 @@
 @{
     ViewData["Title"] = "Index";
 }
+@*<div class="p-2">
 
+    @if (await _userManager.IsInRoleAsync(user, "SuperAdmin"))
+    {
+        <ul class="list-unstyled">
+             Alphabet with number of contacts 
+            <li class="pt-3 pb-3 sticky p-3 b-b white">
+
+                <span class="badge r-3 badge-dark">Ambos</span>
+            </li>
+             Single contact 
+            @foreach (Colaboradores tipo in Model)
+            {
+                @if (tipo.TipoColaborador == "Ambos")
+                {
+
+                    <li class="my-1">
+                        <div class="card no-b p-3">
+                            <div class="">
+
+                                <div class="image mr-3  float-left">
+                                    <img class="w-40px" src="@tipo.Imagen" alt="@tipo.Nombre">
+                                </div>
+                                <div>
+                                    <div>
+                                        <strong>@tipo.Nombre</strong>
+                                    </div>
+                                    <small> @tipo.Email</small>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                }
+            }
+        </ul>
+
+        <ul class="list-unstyled">
+             Alphabet with number of contacts 
+            <li class="pt-3 pb-3 sticky p-3 b-b white">
+
+                <span class="badge r-3 badge-success">Facilitadores</span>
+            </li>
+             Single contact 
+            @foreach (Colaboradores tipo in Model)
+            {
+                @if (tipo.TipoColaborador == "Facilitador")
+                {
+
+                    <li class="my-1">
+                        <div class="card no-b p-3">
+                            <div class="">
+
+                                <div class="image mr-3  float-left">
+                                    <img class="w-40px" src="@tipo.Imagen" alt="@tipo.Nombre">
+                                </div>
+                                <div>
+                                    <div>
+                                        <strong>@tipo.Nombre</strong>
+                                    </div>
+                                    <small> @tipo.Email</small>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                }
+            }
+        </ul>
+        <ul class="list-unstyled">
+             Alphabet with number of contacts 
+            <li class="pt-3 pb-3 sticky p-3 b-b white">
+
+                <span class="badge r-3 badge-danger">Acompañantes</span>
+            </li>
+             Single contact 
+            @foreach (Colaboradores tipo in Model)
+            {
+                @if (tipo.TipoColaborador == "Acompañante")
+                {
+
+                    <li class="my-1">
+                        <div class="card no-b p-3">
+                            <div class="">
+
+                                <div class="image mr-3  float-left">
+                                    <img class="w-40px" src="@tipo.Imagen" alt="@tipo.Nombre">
+                                </div>
+                                <div>
+                                    <div>
+                                        <strong>@tipo.Nombre</strong>
+                                    </div>
+                                    <small> @tipo.Email</small>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                }
+            }
+        </ul>
+    }
+
+</div>*@
 
 <div>
     <div>

@@ -39,7 +39,8 @@ namespace AkademiaV2.Services
 
         public async Task<List<Colaboradores>> GetColaboradoresAsync()
         {
-            return await _context.Colaboradores.ToListAsync();
+            var colaboradores= await _context.Colaboradores.OrderBy(x => x.Nombre).ToListAsync();
+            return colaboradores;
         }
 
         public async Task UpdateColaboradorAsync(Colaboradores colaboradores)

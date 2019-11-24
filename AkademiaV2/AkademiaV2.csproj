@@ -16,4 +16,10 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Assets\img\demo\slider\" />
+    <Folder Include="wwwroot\Assets\img\previews\" />
+  </ItemGroup>
+
 </Project>

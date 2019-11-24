@@ -39,7 +39,8 @@ namespace AkademiaV2
             services.AddRazorPages();
             services.AddTransient<IAlumnos, AlumnosServices>(); 
             services.AddTransient<IColaboradores,ColaboradoresServices>();
-            services.AddTransient<ITalleres,TalleresServices>();
+            services.AddTransient<ITalleres,TalleresServices>(); 
+            services.AddTransient<IAkademia,AkademiaServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

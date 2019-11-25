@@ -26,6 +26,22 @@ namespace AkademiaV2.Controllers
             return View(await _colaboradoresServices.GetColaboradoresAsync());
         }
 
+        public async Task<IActionResult> Profile(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var colaborador = await _colaboradoresServices.GetColaboradorByIdAsync(id);
+            if (colaborador == null)
+            {
+                return NotFound();
+            }
+
+            return View(colaborador);
+        }
+
         // GET: Colaboradores/Details/5
         public async Task<IActionResult> Details(int? id)
         {

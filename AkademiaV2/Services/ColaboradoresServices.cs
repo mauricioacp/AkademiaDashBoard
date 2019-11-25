@@ -34,6 +34,10 @@ namespace AkademiaV2.Services
         }
         public async Task<Colaboradores> GetColaboradorByIdAsync(int? id)
         {
+           
+            var colaboradorA = await _context.BusquedaAcompañantes.Where(o => o.Id == id).Include(o => o.Nombre).Include(o => o.RutaDrive).ToListAsync();
+            var colaboradorF = await _context.BusquedaFacilitadores.Where(o => o.Id == id).Include(o => o.Nombre).Include(o => o.RutaDrive).ToListAsync();
+                
             return await _context.Colaboradores.FirstOrDefaultAsync(m => m.Id == id);
         }
 

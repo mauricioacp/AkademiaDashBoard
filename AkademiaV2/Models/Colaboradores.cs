@@ -37,5 +37,7 @@ namespace AkademiaV2.Models
             "\n-Ambos")]
         public string TipoColaborador { get; set; }
         public string Entrevista { get; set; }
+        public List<BusquedaAcompañantes> BusquedaAcompañantes { get; set; }
+        public List<BusquedaFacilitadores> BusquedaFacilitadores { get; set; }
     }
 }

@@ -87,7 +87,7 @@ namespace AkademiaV2.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return RedirectToAction("Colaboradores", "Index");
+                    return RedirectToAction("Index", "Colaboradores");
                 }
                 if (result.RequiresTwoFactor)
                 {

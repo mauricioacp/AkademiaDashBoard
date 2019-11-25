@@ -41,7 +41,10 @@ namespace AkademiaV2.Services
 
         public async Task<List<Alumnos>> GetAlumnos()
         {
-             return await _context.Alumnos.ToListAsync();
+            var alumnos = await _context.Alumnos.OrderBy(x => x.Nombre).ToListAsync();
+            alumnos = await _context.Alumnos.Include(o => o.Colaboradores).ToListAsync();
+            return alumnos;
+          
         }
 
         public async Task UpdateAlumnoAsync(Alumnos alumnos)

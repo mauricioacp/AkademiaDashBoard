@@ -1,21 +1,17 @@
 ﻿@model AkademiaV2.Models.Colaboradores
 
 
-@{
-    ViewData["Title"] = "Profile";
-}
-
 <header class="white pt-3 relative shadow">
     <div class="container-fluid">
         <div class="row p-t-b-10 ">
             <div class="col">
                 <div class="pb-3">
                     <div class="image mr-3  float-left">
-                        <img class="@Model.Imagen"  alt="@Model.Nombre @Model.Apellidos">
+                        <img class="@Model.Imagen" alt="@Model.Nombre @Model.Apellidos">
                     </div>
                     <div>
                         <h6 class="p-t-10">@Model.Nombre</h6>
-                       @Model.Email
+                        @Model.Email
                     </div>
                 </div>
             </div>
@@ -43,138 +39,138 @@
     </div>
 </header>
 <div>
-<div class="container-fluid animatedParent animateOnce my-3">
-    <div class="animated fadeInUpShort">
-        <div class="tab-content" id="v-pills-tabContent">
-            <div class="tab-pane fade show active" id="v-pills-tab1" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="card ">
+    <div class="container-fluid animatedParent animateOnce my-3">
+        <div class="animated fadeInUpShort">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-tab1" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card ">
 
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item"><i class="icon icon-mobile text-primary"></i><strong class="s-12">Teléfono</strong> <span class="float-right s-12">@Model.Telefono</span></li>
-                                <li class="list-group-item"><i class="icon icon-mail text-success"></i><strong class="s-12">Email</strong> <span class="float-right s-12">@Model.Email</span></li>
-                                <li class="list-group-item"><i class="icon icon-address-card-o text-warning"></i><strong class="s-12">Sede @Model.Akademia.Ciudad</strong> <span class="float-right s-12">@Model.Akademia.Direccion</span></li>
-                                <li class="list-group-item"><i class="icon icon-web text-danger"></i> <strong class="s-12">Función:</strong> <span class="float-right s-12">@Model.TipoColaborador</span></li>
-                            </ul>
-                        </div>
-                        <div class="card mt-3 mb-3">
-                            <div class="card-header bg-white">
-                                <strong class="card-title">Acompañando</strong>
-
-                            </div>
-                            <ul class="no-b">
-                                <li class="list-group-item">
-                                    <a href="">
-                                        <div class="image mr-3  float-left">
-                                            <img class="" src="assets/img/dummy/u3.png" alt="Alumno">
-                                        </div>
-                                        <h6 class="p-t-10">@Model.Sesiones</h6><!---Alumnos que acompaña-->
-                                        <span><i class="icon-mobile-phone"></i>Número Alumno</span>
-                                    </a>
-                                </li>
-                            </ul>
-
-                            <div class="card-header bg-white">
-                                <strong class="card-title">Talleres</strong>
-                            </div>
-                            <div>
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <div class="image mr-3  float-left">
-                                            <img class="user_avatar" src="assets/img/dummy/u1.png" alt="User Image">
-                                        </div>
-                                        <h6 class="p-t-10">@Model.ColaboradoresTalleres.Talleres.Nombre</h6>
-                                        <span> Con quien más da el taller</span>
-                                    </li>
-                                    
+                                    <li class="list-group-item"><i class="icon icon-mobile text-primary"></i><strong class="s-12">Teléfono</strong> <span class="float-right s-12">@Model.Telefono</span></li>
+                                    <li class="list-group-item"><i class="icon icon-mail text-success"></i><strong class="s-12">Email</strong> <span class="float-right s-12">@Model.Email</span></li>
+                                    @*<li class="list-group-item"><i class="icon icon-address-card-o text-warning"></i><strong class="s-12">Sede @Model.Akademia.Ciudad</strong> <span class="float-right s-12">@Model.Akademia.Direccion</span></li>*@
+                                    <li class="list-group-item"><i class="icon icon-web text-danger"></i> <strong class="s-12">Función:</strong> <span class="float-right s-12">@Model.TipoColaborador</span></li>
                                 </ul>
                             </div>
+                            <div class="card mt-3 mb-3">
+                                <div class="card-header bg-white">
+                                    <strong class="card-title">Acompañando</strong>
 
-                        </div>
-
-                    </div>
-                    <div class="col-md-9">
-
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="card r-3">
-                                    <div class="p-4">
-                                        <div class="float-right">
-                                            <span class="icon-university text-light-blue s-48"></span>
-                                        </div>
-                                        <div class="counter-title">Edición</div>
-                                        <h5 class="sc-counter mt-3">@Model.Akademia.Edicion</h5>
-                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="card r-3">
-                                    <div class="p-4">
-                                        <div class="float-right">
-                                            <span class="icon-globe s-48"></span>
-                                        </div>
-                                        <div class="counter-title ">Delegación</div>
-                                        <h5 class="sc-counter mt-3">@Model.Akademia.Ciudad</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="white card">
-                                    <div class="p-4">
-                                        <div class="float-right">
-                                            <span class="icon-orders s-48"></span>
-                                        </div>
-                                        <div class="counter-title">Tipo Colaborador</div>
-                                        <h5 class="sc-counter mt-3">@Model.TipoColaborador</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row my-3">
-                            <!-- bar charts group -->
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-header white">
-                                        <h6>Talleres <small>Asistencia</small></h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <div id="graphx" class="height-300"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /bar charts group -->
-
-
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card">
-                                    @*<div class="card-header white">
-            @foreach (AlumnosTalleres alumnos in Model.ColaboradoresTalleres.Talleres.AlumnosTalleres)
-            {
-                foreach (Alumnos alumnos1 in alumnos)
-                {
-
-            <h6>Asistentes <span class="badge badge-success r-3"><select>@alumnos1.Nombre</select></span></h6>
-                }
-            }
-        </div>
-        <div class="card-body">*@
-                                    <ul class="list-inline mt-3">
-                                    @*@foreach (AlumnosTalleres alumnos in Model.ColaboradoresTalleres.Talleres.AlumnosTalleres)
-                                    {
-                                        foreach (Alumnos alumnos1 in alumnos)
-                                        {
-
-                                    <li class="list-inline-item ">
-                                        <img src="@alumnos1.Imagen" alt="" class="img-responsive w-40px circle mb-3">
+                                <ul class="no-b">
+                                    <li class="list-group-item">
+                                        <a href="">
+                                            <div class="image mr-3  float-left">
+                                                <img class="" src="assets/img/dummy/u3.png" alt="Alumno">
+                                            </div>
+                                            <h6 class="p-t-10">@Model.Sesiones</h6><!---Alumnos que acompaña-->
+                                            <span><i class="icon-mobile-phone"></i>Número Alumno</span>
+                                        </a>
                                     </li>
-                                        }
-                                    }*@                                                                        
+                                </ul>
+
+                                <div class="card-header bg-white">
+                                    <strong class="card-title">Talleres</strong>
+                                </div>
+                                <div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <div class="image mr-3  float-left">
+                                                <img class="user_avatar" src="assets/img/dummy/u1.png" alt="User Image">
+                                            </div>
+                                            @*<h6 class="p-t-10">@Model.ColaboradoresTalleres.Talleres.Nombre</h6>*@
+                                            <span> Con quien más da el taller</span>
+                                        </li>
+
                                     </ul>
                                 </div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-9">
+
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="card r-3">
+                                        <div class="p-4">
+                                            <div class="float-right">
+                                                <span class="icon-university text-light-blue s-48"></span>
+                                            </div>
+                                            <div class="counter-title">Edición</div>
+                                            @*<h5 class="sc-counter mt-3">@Model.Akademia.Edicion</h5>*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="card r-3">
+                                        <div class="p-4">
+                                            <div class="float-right">
+                                                <span class="icon-globe s-48"></span>
+                                            </div>
+                                            <div class="counter-title ">Delegación</div>
+                                            @*<h5 class="sc-counter mt-3">@Model.Akademia.Ciudad</h5>*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="white card">
+                                        <div class="p-4">
+                                            <div class="float-right">
+                                                <span class="icon-orders s-48"></span>
+                                            </div>
+                                            <div class="counter-title">Tipo Colaborador</div>
+                                            <h5 class="sc-counter mt-3">@Model.TipoColaborador</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row my-3">
+                                <!-- bar charts group -->
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header white">
+                                            <h6>Talleres <small>Asistencia</small></h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="graphx" class="height-300"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /bar charts group -->
+
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        @*<div class="card-header white">
+                                                @foreach (AlumnosTalleres alumnos in Model.ColaboradoresTalleres.Talleres.AlumnosTalleres)
+                                                {
+                                                    foreach (Alumnos alumnos1 in alumnos)
+                                                    {
+
+                                                <h6>Asistentes <span class="badge badge-success r-3"><select>@alumnos1.Nombre</select></span></h6>
+                                                    }
+                                                }
+                                            </div>
+                                            <div class="card-body">*@
+                                        <ul class="list-inline mt-3">
+                                            @*@foreach (AlumnosTalleres alumnos in Model.ColaboradoresTalleres.Talleres.AlumnosTalleres)
+                                                {
+                                                    foreach (Alumnos alumnos1 in alumnos)
+                                                    {
+
+                                                <li class="list-inline-item ">
+                                                    <img src="@alumnos1.Imagen" alt="" class="img-responsive w-40px circle mb-3">
+                                                </li>
+                                                    }
+                                                }*@
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -200,56 +196,56 @@
                                                     <th>Enlace Directo</th>
                                                     <th>Carpeta</th>
                                                     <th>Responsabilidad</th>
-                                                    
-                                                  
+
+
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @*@if (Model.TipoColaborador == "Facilitador")
-                                                {
-                                                    @foreach (BusquedaFacilitadores item in Model.BusquedaFacilitadores)
                                                     {
-                                                        <tr>
-                                                            <td>@item.Nombre</td>
-                                                            <td><a href="@item.RutaDrive">Acceso Drive</a></td>
-                                                            <td><a href="@Model.CloudCarpetaPrincipal">Acceso Principal</a></td>
-                                                        </tr>
+                                                        @foreach (BusquedaFacilitadores item in Model.BusquedaFacilitadores)
+                                                        {
+                                                            <tr>
+                                                                <td>@item.Nombre</td>
+                                                                <td><a href="@item.RutaDrive">Acceso Drive</a></td>
+                                                                <td><a href="@Model.CloudCarpetaPrincipal">Acceso Principal</a></td>
+                                                            </tr>
 
+                                                        }
                                                     }
-                                                }
-                                                else if (Model.TipoColaborador == "Ambos")
-                                                {
-                                                    @foreach (BusquedaFacilitadores item in Model.BusquedaFacilitadores)
+                                                    else if (Model.TipoColaborador == "Ambos")
                                                     {
-                                                        <tr>
-                                                            <td>@item.Nombre</td>
-                                                            <td><a href="@item.RutaDrive">Acceso Drive</a></td>
-                                                            <td><a href="@Model.CloudCarpetaPrincipal">Acceso Principal</a></td>
-                                                            <td>@Model.TipoColaborador</td>
-                                                        </tr>
+                                                        @foreach (BusquedaFacilitadores item in Model.BusquedaFacilitadores)
+                                                        {
+                                                            <tr>
+                                                                <td>@item.Nombre</td>
+                                                                <td><a href="@item.RutaDrive">Acceso Drive</a></td>
+                                                                <td><a href="@Model.CloudCarpetaPrincipal">Acceso Principal</a></td>
+                                                                <td>@Model.TipoColaborador</td>
+                                                            </tr>
+                                                        }
+                                                        @foreach (BusquedaAcompañantes item in Model.BusquedaAcompañantes)
+                                                        {
+                                                            <tr>
+                                                                <td>@item.Nombre</td>
+                                                                <td><a href="@item.RutaDrive">Acceso Drive</a></td>
+                                                                <td><a href="@Model.CloudCarpetaPrincipal">Acceso Principal</a></td>
+                                                                <td>@Model.TipoColaborador</td>
+                                                            </tr>
+                                                        }
                                                     }
-                                                    @foreach (BusquedaAcompañantes item in Model.BusquedaAcompañantes)
+                                                    else
                                                     {
-                                                        <tr>
-                                                            <td>@item.Nombre</td>
-                                                            <td><a href="@item.RutaDrive">Acceso Drive</a></td>
-                                                            <td><a href="@Model.CloudCarpetaPrincipal">Acceso Principal</a></td>
-                                                            <td>@Model.TipoColaborador</td>
-                                                        </tr>
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    @foreach (BusquedaAcompañantes item in Model.BusquedaAcompañantes)
-                                                    {
-                                                        <tr>
-                                                            <td>@item.Nombre</td>
-                                                            <td><a href="@item.RutaDrive">Acceso Drive</a></td>
-                                                            <td><a href="@Model.CloudCarpetaPrincipal">Acceso Principal</a></td>
-                                                            <td>@Model.TipoColaborador</td>
-                                                        </tr>
-                                                    }
-                                                }*@
+                                                        @foreach (BusquedaAcompañantes item in Model.BusquedaAcompañantes)
+                                                        {
+                                                            <tr>
+                                                                <td>@item.Nombre</td>
+                                                                <td><a href="@item.RutaDrive">Acceso Drive</a></td>
+                                                                <td><a href="@Model.CloudCarpetaPrincipal">Acceso Principal</a></td>
+                                                                <td>@Model.TipoColaborador</td>
+                                                            </tr>
+                                                        }
+                                                    }*@
                                             </tbody>
                                         </table>
                                     </div>
@@ -259,7 +255,7 @@
                     </div>
                 </div>
 
-            </div> 
+            </div>
             <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
                 <form class="form-horizontal" asp-action="Edit">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -320,61 +316,61 @@
                         </div>
                     </div>
                 </form>
-          
+
             </div>
             @*<div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label for="inputNamea" class="col-sm-2 control-label">Name</label>
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="inputNamea" class="col-sm-2 control-label">Name</label>
 
-                        <div class="col-sm-10">
-                            <input class="form-control" id="inputNamea" placeholder="Name" type="email">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail" class="col-sm-2 control-label">Email</label>
-
-                        <div class="col-sm-10">
-                            <input class="form-control" id="inputEmail" placeholder="Email" type="email">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputName" class="col-sm-2 control-label">Name</label>
-
-                        <div class="col-sm-10">
-                            <input class="form-control" id="inputName" placeholder="Name" type="text">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
-
-                        <div class="col-sm-10">
-                            <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputSkills" class="col-sm-2 control-label">Skills</label>
-
-                        <div class="col-sm-10">
-                            <input class="form-control" id="inputSkills" placeholder="Skills" type="text">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                                </label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="inputNamea" placeholder="Name" type="email">
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-danger">Submit</button>
+                        <div class="form-group">
+                            <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+
+                            <div class="col-sm-10">
+                                <input class="form-control" id="inputEmail" placeholder="Email" type="email">
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </div>*@
+                        <div class="form-group">
+                            <label for="inputName" class="col-sm-2 control-label">Name</label>
+
+                            <div class="col-sm-10">
+                                <input class="form-control" id="inputName" placeholder="Name" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
+
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputSkills" class="col-sm-2 control-label">Skills</label>
+
+                            <div class="col-sm-10">
+                                <input class="form-control" id="inputSkills" placeholder="Skills" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-danger">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>*@
         </div>
     </div>
 </div>

@@ -36,7 +36,8 @@ namespace AkademiaV2.Services
 
         public async Task<List<Talleres>> GetTalleresAsync()
         {
-            return await _context.Talleres.ToListAsync();
+             var talleres = await _context.Talleres.OrderBy(x => x.FechaTaller).ToListAsync();
+            return talleres;
         }
 
         public bool TallerExists(int id)

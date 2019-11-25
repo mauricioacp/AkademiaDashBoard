@@ -4,9 +4,9 @@
 @using Microsoft.AspNetCore.Identity;
 @inject SignInManager<AppUser> _signInManager
 @inject UserManager<AppUser> _userManager
+@inject IColaboradores _colabServices
 
-
-
+<!Doctype html>
     <html lang="zxx">
     <head>
         <meta charset="utf-8">
@@ -15,10 +15,11 @@
         <meta name="author" content="">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" />
-        <link rel="icon" href="~/assets/img/basic/favicon.ico" type="image/x-icon">
-        <title>Paper</title>
+
+        <link rel="icon" href="~/Assets/img/basic/favicon.ico" type="image/x-icon">
+        <title>Akademy System</title>
         <!-- CSS -->
-        <link rel="stylesheet" href="assets/css/app.css">
+        <link rel="stylesheet" href="~/Assets/css/app.css">
 
     </head>
     <body class="light sidebar-mini sidebar-collapse">
@@ -89,6 +90,7 @@
                                 </a>
                             </div>
                         </div>
+                        
                         <div class="tab-content flex-grow-1" id="v-pills-tabContent">
                             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
                                  aria-labelledby="v-pills-home-tab">
@@ -114,22 +116,22 @@
                                         </a>
                                         <ul class="treeview-menu">
                                             <li>
-                                                <a href="panel-page-products.html">
+                                                <a asp-controller="Colaboradores" asp-action="Index">
                                                     <i class="icon icon-circle-o"></i>Ambos
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="panel-page-products-create.html">
+                                                <a asp-controller="Colaboradores" asp-action="Facilitadores">
                                                     <i class="icon icon-add"></i>Facilitadores
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="panel-page-products-create.html">
+                                                <a asp-controller="Colaboradores" asp-action="Acompañantes">
                                                     <i class="icon icon-add"></i>Acompañantes
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="panel-page-profile.html"><i class="icon icon-user"></i>Buscar</a>
+                                                <a asp-controller="Colaboradores" asp-action="Busqueda"><i class="icon icon-user"></i>Buscar</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -139,13 +141,13 @@
                                         </a>
                                         <ul class="treeview-menu">
                                             <li>
-                                                <a asp-controller="AlumnosController" asp-action="Index"><i class="icon icon-circle-o"></i>Todos</a>
+                                                <a asp-controller="Alumnos" asp-action="Index"><i class="icon icon-circle-o"></i>Todos</a>
                                             </li>
                                             <li>
-                                                <a href="panel-page-users-create.html"><i class="icon icon-add"></i>Crear</a>
+                                                <a asp-controller="Alumnos" asp-action="Create"><i class="icon icon-circle-o"></i>Crear</a>
                                             </li>
                                             <li>
-                                                <a href="panel-page-profile.html"><i class="icon icon-user"></i>Buscar</a>
+                                                <a asp-controller="Alumnos" asp-action="Busqueda"><i class="icon icon-user"></i>Buscar</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -157,13 +159,13 @@
                                         </a>
                                         <ul class="treeview-menu">
                                             <li>
-                                                <a href="inbox.html"><i class="icon icon-circle-o"></i>Todos</a>
+                                                <a asp-controller="Talleres" asp-action="Index"><i class="icon icon-circle-o"></i>Todos</a>
                                             </li>
                                             <li>
-                                                <a href="inbox2.html"><i class="icon icon-circle-o"></i>Crear</a>
+                                                <a asp-controller="Talleres" asp-action="Create"><i class="icon icon-circle-o"></i>Crear</a>
                                             </li>
                                             <li>
-                                                <a href="inbox-create.html"><i class="icon icon-add"></i>Buscar</a>
+                                                <a asp-controller="Talleres" asp-action="Busqueda"><i class="icon icon-add"></i>Buscar</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -174,23 +176,17 @@
                                         </a>
                                         <ul class="treeview-menu">
                                             <li>
-                                                <a href="chat.html"><i class="icon icon-circle-o"></i>Talleres</a>
+                                                <a asp-controller="BusquedaTalleres" asp-action="Index"><i class="icon icon-circle-o"></i>Talleres</a>
                                             </li>
                                             <li>
-                                                <a href="tasks.html"><i class="icon icon-circle-o"></i>Alumnos</a>
+                                                <a asp-controller="BusquedaAlumnos" asp-action="Index"><i class="icon icon-circle-o"></i>Alumnos</a>
                                             </li>
                                             <li>
-                                                <a href="calendar.html"><i class="icon icon-date_range"></i>Colaboradores</a>
+                                                <a asp-controller="BusquedaFacilitadores" asp-action="Index"><i class="icon icon-date_range"></i>Facilitadores</a>
                                             </li>
                                             <li>
-                                                <a href="contacts.html"><i class="icon icon-circle-o"></i>Recursos</a>
-                                            </li>
-                                            <li>
-                                                <a href="calendar.html"><i class="icon icon-circle-o"></i>Eventos</a>
-                                            </li>
-                                            <li>
-                                                <a href="projects-list.html"><i class="icon icon-circle-o"></i>Media</a>
-                                            </li>
+                                                <a asp-controller="BusquedaAcompañantes" asp-action="Index"><i class="icon icon-date_range"></i>Acompañantes</a>
+                                            </li>                                           
                                         </ul>
                                     </li>
                                 </ul>
@@ -207,13 +203,123 @@
                                 <div class="sticky slimScroll">
 
                                     <div id="infierno2" class="p-2">
+                                       
+                                            @if (_signInManager.IsSignedIn(User))
+                                            { AppUser user = await _userManager.GetUserAsync(User);
 
-                                    </div>
-                                </div>
+                                                <div class="p-2">
+                                                    
+                                                    @if(await _userManager.IsInRoleAsync(user, "SuperAdmin"))
+                                                    {
+                                                        <ul class="list-unstyled">
+                                                           
+                                                            <li class="pt-3 pb-3 sticky p-3 b-b white">
+
+                                                                <span class="badge r-3 badge-dark">Ambos</span>
+                                                            </li>
+                                                          
+                                                            @foreach (Colaboradores tipo in await _colabServices.GetColaboradoresAsync())
+                                                            {
+                                                                @if (tipo.TipoColaborador == "Ambos")
+                                                                {
+
+                                                                    <li class="my-1">
+                                                                        <div class="card no-b p-3">
+                                                                            <div class="">
+
+                                                                                <div class="image mr-3  float-left">
+                                                                                    <img class="w-40px" src="@tipo.Imagen" alt="@tipo.Nombre">
+                                                                                </div>
+                                                                                <div>
+                                                                                    <div>
+                                                                                        <strong>@tipo.Nombre</strong>
+                                                                                    </div>
+                                                                                    <small> @tipo.Email</small>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                }
+                                                            }
+                                                        </ul>
+
+                                                        <ul class="list-unstyled">
+                                                           
+                                                            <li class="pt-3 pb-3 sticky p-3 b-b white">
+
+                                                                <span class="badge r-3 badge-success">Facilitadores</span>
+                                                            </li>
+                                                        
+                                                            @foreach (Colaboradores tipo in await _colabServices.GetColaboradoresAsync())
+                                                            {
+                                                                @if (tipo.TipoColaborador == "Facilitador")
+                                                                {
+
+                                                                    <li class="my-1">
+                                                                        <div class="card no-b p-3">
+                                                                            <div class="">
+
+                                                                                <div class="image mr-3  float-left">
+                                                                                    <img class="w-40px" src="@tipo.Imagen" alt="@tipo.Nombre">
+                                                                                </div>
+                                                                                <div>
+                                                                                    <div>
+                                                                                        <strong>@tipo.Nombre</strong>
+                                                                                    </div>
+                                                                                    <small> @tipo.Email</small>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                }
+                                                            }
+                                                        </ul>
+                                                        <ul class="list-unstyled">
+                                                           
+                                                            <li class="pt-3 pb-3 sticky p-3 b-b white">
+
+                                                                <span class="badge r-3 badge-danger">Acompañantes</span>
+                                                            </li>
+                                                          
+                                                            @foreach (Colaboradores tipo in await _colabServices.GetColaboradoresAsync())
+                                                            {
+                                                                @if (tipo.TipoColaborador == "Acompañante")
+                                                                {
+
+                                                                    <li class="my-1">
+                                                                        <div class="card no-b p-3">
+                                                                            <div class="">
+
+                                                                                <div class="image mr-3  float-left">
+                                                                                    <img class="w-40px" src="@tipo.Imagen" alt="@tipo.Nombre">
+                                                                                </div>
+                                                                                <div>
+                                                                                    <div>
+                                                                                        <strong>@tipo.Nombre</strong>
+                                                                                    </div>
+                                                                                    <small> @tipo.Email</small>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                }
+                                                            }
+                                                        </ul>
+                                                    }
+                                                    }
+                                                </div>
+                                            }
+                                            
+                                            </div>
                             </div>
+                                
                         </div>
-                    </div>
+                            
+                  
+                        </div>
+                        
                 </div>
+                    </div>
             </aside>
 
             <div class="has-sidebar-left">
@@ -242,184 +348,22 @@
                                 <div class="d-none d-md-block">
                                     <h1 class="nav-title">Dashboard</h1>
                                 </div>
+                                <partial name="_LoginPartial" />
                             </div>
                         </div>
-                        <ul class="dropdown-menu dropdown-menu-right">
-                            <li>
-                                <a class="nav-link ml-2" data-toggle="control-sidebar">
-
-                                    <i class="icon-format_align_right"></i>
-                                </a>
-                            </li>
-                        </ul>
+                      
                     </div>
                 </div>
             </div>
             <!--#navbar-->
             <div class="container">
                 <main role="main" class="pb-3">
+                  
                     @RenderBody()
+                    <br>
                 </main>
             </div>
-            <!-- Right Sidebar -->
-            <aside class="control-sidebar fixed white ">
-                <div class="slimScroll">
-                    <div class="sidebar-header">
-                        <h4>Activity List</h4>
-                        <a href="#" data-toggle="control-sidebar" class="paper-nav-toggle  active"><i></i></a>
-                    </div>
-                    <div class="p-3">
-                        <div>
-                            <div class="my-3">
-                                <small>25% Complete</small>
-                                <div class="progress" style="height: 3px;">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25"
-                                         aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="my-3">
-                                <small>45% Complete</small>
-                                <div class="progress" style="height: 3px;">
-                                    <div class="progress-bar bg-info" role="progressbar" style="width: 45%;" aria-valuenow="45"
-                                         aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="my-3">
-                                <small>60% Complete</small>
-                                `
-                                <div class="progress" style="height: 3px;">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 60%;" aria-valuenow="60"
-                                         aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="my-3">
-                                <small>75% Complete</small>
-                                <div class="progress" style="height: 3px;">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 75%;" aria-valuenow="75"
-                                         aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="my-3">
-                                <small>100% Complete</small>
-                                <div class="progress" style="height: 3px;">
-                                    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100"
-                                         aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-3 bg-primary text-white">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h5 class="font-weight-normal s-14">Sodium</h5>
-                                <span class="font-weight-lighter text-primary">Spark Bar</span>
-                                <div>
-                                    Oxygen
-                                    <span class="text-primary">
-                                        <i class="icon icon-arrow_downward"></i> 67%
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <canvas width="100" height="70" data-chart="spark" data-chart-type="bar"
-                                        data-dataset="[[28,68,41,43,96,45,100,28,68,41,43,96,45,100,28,68,41,43,96,45,100,28,68,41,43,96,45,100]]"
-                                        data-labels="['a','b','c','d','e','f','g','h','i','j','k','l','m','n','a','b','c','d','e','f','g','h','i','j','k','l','m','n']">
-                                </canvas>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="table-responsive">
-                        <table id="recent-orders" class="table table-hover mb-0 ps-container ps-theme-default">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <a href="#">INV-281281</a>
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-success">Paid</span>
-                                    </td>
-                                    <td>$ 1228.28</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="#">INV-01112</a>
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-warning">Overdue</span>
-                                    </td>
-                                    <td>$ 5685.28</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="#">INV-281012</a>
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-success">Paid</span>
-                                    </td>
-                                    <td>$ 152.28</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="#">INV-01112</a>
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-warning">Overdue</span>
-                                    </td>
-                                    <td>$ 5685.28</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="#">INV-281012</a>
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-success">Paid</span>
-                                    </td>
-                                    <td>$ 152.28</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="sidebar-header">
-                        <h4>Activity</h4>
-                        <a href="#" data-toggle="control-sidebar" class="paper-nav-toggle  active"><i></i></a>
-                    </div>
-                    <div class="p-4">
-                        <div class="activity-item activity-primary">
-                            <div class="activity-content">
-                                <small class="text-muted">
-                                    <i class="icon icon-user position-left"></i> 5 mins ago
-                                </small>
-                                <p>Lorem ipsum dolor sit amet conse ctetur which ascing elit users.</p>
-                            </div>
-                        </div>
-                        <div class="activity-item activity-danger">
-                            <div class="activity-content">
-                                <small class="text-muted">
-                                    <i class="icon icon-user position-left"></i> 8 mins ago
-                                </small>
-                                <p>Lorem ipsum dolor sit ametcon the sectetur that ascing elit users.</p>
-                            </div>
-                        </div>
-                        <div class="activity-item activity-success">
-                            <div class="activity-content">
-                                <small class="text-muted">
-                                    <i class="icon icon-user position-left"></i> 10 mins ago
-                                </small>
-                                <p>Lorem ipsum dolor sit amet cons the ecte tur and adip ascing elit users.</p>
-                            </div>
-                        </div>
-                        <div class="activity-item activity-warning">
-                            <div class="activity-content">
-                                <small class="text-muted">
-                                    <i class="icon icon-user position-left"></i> 12 mins ago
-                                </small>
-                                <p>Lorem ipsum dolor sit amet consec tetur adip ascing elit users.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </aside>
-            <!-- /.right-sidebar -->
+          
             <!-- Add the sidebar's background. This div must be placed
         immediately after the control sidebar -->
             <div class="control-sidebar-bg shadow white fixed"></div>
@@ -428,7 +372,8 @@
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
-        <script src="~/assets/js/app.js"></script>
+     
+        <script src="~/Assets/js/app.js"></script>
         @RenderSection("Scripts", required: false)
     </body>
     </html>

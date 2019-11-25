@@ -32,8 +32,9 @@ namespace AkademiaV2.Controllers
             {
                 return NotFound();
             }
-
+           
             var colaborador = await _colaboradoresServices.GetColaboradorByIdAsync(id);
+            
             if (colaborador == null)
             {
                 return NotFound();

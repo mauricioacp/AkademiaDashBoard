@@ -33,6 +33,6 @@ namespace AkademiaV2.Models
         public Akademia Akademia { get; set; }
         [Display(Name = "Cloud Link: Entrevista")]
         public string Entrevista { get; set; }
-        public Colaboradores Colaboradores { get; set; }
+        public List<Colaboradores> Colaboradores { get; set; }
     }
 }

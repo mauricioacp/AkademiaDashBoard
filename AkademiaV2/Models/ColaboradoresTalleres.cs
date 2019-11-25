@@ -9,7 +9,7 @@ namespace AkademiaV2.Models
     {
         public int Id { get; set; }
         public List<Colaboradores> Colaboradores { get; set; }
-        public Talleres Talleres { get; set; }
+        public Talleres Taller { get; set; }
         public int TalleresId { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace AkademiaV2.Services
         public async Task CreateAlumnoAsync(Alumnos alumnos)
         {
             await _context.AddAsync(alumnos);
-            await _context.Alumnos.Include(x => x.Colaboradores).ToListAsync();
+            await _context.Alumnos.Include(x => x.Colaborador).ToListAsync();
             await _context.SaveChangesAsync();
         }
 
@@ -42,7 +42,7 @@ namespace AkademiaV2.Services
         public async Task<List<Alumnos>> GetAlumnos()
         {
             var alumnos = await _context.Alumnos.OrderBy(x => x.Nombre).ToListAsync();
-            alumnos = await _context.Alumnos.Include(o => o.Colaboradores).ToListAsync();
+            alumnos = await _context.Alumnos.Include(o => o.Colaborador).ToListAsync();
             return alumnos;
           
         }

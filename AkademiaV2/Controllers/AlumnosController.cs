@@ -9,16 +9,19 @@ using AkademiaV2.Data;
 using AkademiaV2.Models;
 using AkademiaV2.Services;
 using Microsoft.AspNetCore.Authorization;
+using AkademiaV2.Models.ViewModels;
 
 namespace AkademiaV2.Controllers
 {
     public class AlumnosController : Controller
     {
         private readonly IAlumnos _alumnosServices;
+        private readonly IColaboradores _colaboradoresServices;
 
-        public AlumnosController(IAlumnos alumnosServices)
+        public AlumnosController(IAlumnos alumnosServices, IColaboradores colaboradoresServices)
         {
             _alumnosServices = alumnosServices;
+            _colaboradoresServices = colaboradoresServices;
         }
 
         // GET: Alumnos
@@ -47,9 +50,15 @@ namespace AkademiaV2.Controllers
 
         // GET: Alumnos/Create
         [Authorize(Roles = "SuperAdmin")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+
+            AlumnoColaborador alumnoColaborador = new AlumnoColaborador
+            {
+                Colaboradores = await _colaboradoresServices.GetColaboradoresAsync(),
+
+            };
+            return View(alumnoColaborador);
         }
 
         // POST: Alumnos/Create
@@ -58,15 +67,15 @@ namespace AkademiaV2.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "SuperAdmin")]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Apellidos,Imagen,Email,Telefono,CartaMotivacional,FechaNacimiento,Comentarios,Edicion")] Alumnos alumnos)
+        public async Task<IActionResult> Create(AlumnoColaborador alumnoColaborador)
         {
             if (ModelState.IsValid)
             {
-                await _alumnosServices.CreateAlumnoAsync(alumnos);
+                await _alumnosServices.CreateAlumnoAsync(alumnoColaborador.Alumnos);
              
                 return RedirectToAction(nameof(Index));
             }
-            return View(alumnos);
+            return View(alumnoColaborador);
         }
 
         // GET: Alumnos/Edit/5

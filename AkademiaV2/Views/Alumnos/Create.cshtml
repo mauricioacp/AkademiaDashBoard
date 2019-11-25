@@ -1,4 +1,4 @@
-﻿@model AkademiaV2.Models.Alumnos
+﻿@model AkademiaV2.Models.ViewModels.AlumnoColaborador
 
 @{
     ViewData["Title"] = "Create";
@@ -13,52 +13,52 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
+                <label asp-for="AlumnoColaboradores.Alumnos.Nombre" class="control-label"></label>
+                <input asp-for="AlumnoColaboradores.Alumnos.Nombre" class="form-control" />
+                <span asp-validation-for="AlumnoColaboradores.Alumnos.Nombre" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Apellidos" class="control-label"></label>
-                <input asp-for="Apellidos" class="form-control" />
-                <span asp-validation-for="Apellidos" class="text-danger"></span>
+                <label asp-for="AlumnoColaboradores.Alumnos.Apellidos" class="control-label"></label>
+                <input asp-for="AlumnoColaboradores.Alumnos.Apellidos" class="form-control" />
+                <span asp-validation-for="AlumnoColaboradores.Alumnos.Apellidos" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Imagen" class="control-label"></label>
-                <input asp-for="Imagen" class="form-control" />
-                <span asp-validation-for="Imagen" class="text-danger"></span>
+                <label asp-for="AlumnoColaboradores.Alumnos.Imagen" class="control-label"></label>
+                <input asp-for="AlumnoColaboradores.Alumnos.Imagen" class="form-control" />
+                <span asp-validation-for="AlumnoColaboradores.Alumnos.Imagen" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <label asp-for="AlumnoColaboradores.Alumnos.Email" class="control-label"></label>
+                <input asp-for="AlumnoColaboradores.Alumnos.Email" class="form-control" />
+                <span asp-validation-for="AlumnoColaboradores.Alumnos.Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Telefono" class="control-label"></label>
-                <input asp-for="Telefono" class="form-control" />
-                <span asp-validation-for="Telefono" class="text-danger"></span>
+                <label asp-for="AlumnoColaboradores.Alumnos.Telefono" class="control-label"></label>
+                <input asp-for="AlumnoColaboradores.Alumnos.Telefono" class="form-control" />
+                <span asp-validation-for="AlumnoColaboradores.Alumnos.Telefono" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CartaMotivacional" class="control-label"></label>
-                <input asp-for="CartaMotivacional" class="form-control" />
-                <span asp-validation-for="CartaMotivacional" class="text-danger"></span>
+                <label asp-for="AlumnoColaboradores.Alumnos.CartaMotivacional" class="control-label"></label>
+                <input asp-for="AlumnoColaboradores.Alumnos.CartaMotivacional" class="form-control" />
+                <span asp-validation-for="AlumnoColaboradores.Alumnos.CartaMotivacional" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FechaNacimiento" class="control-label"></label>
-                <input asp-for="FechaNacimiento" type="date" asp-format="{0:d}" class="form-control" />
-                <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+                <label asp-for="AlumnoColaboradores.Alumnos.FechaNacimiento" class="control-label"></label>
+                <input asp-for="AlumnoColaboradores.Alumnos.FechaNacimiento" type="date" asp-format="{0:d}" class="form-control" />
+                <span asp-validation-for="AlumnoColaboradores.Alumnos.FechaNacimiento" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Comentarios" class="control-label"></label>
-                <input asp-for="Comentarios" class="form-control" />
-                <span asp-validation-for="Comentarios" class="text-danger"></span>
+                <label asp-for="AlumnoColaboradores.Alumnos.Comentarios" class="control-label"></label>
+                <input asp-for="AlumnoColaboradores.Alumnos.Comentarios" class="form-control" />
+                <span asp-validation-for="AlumnoColaboradores.Alumnos.Comentarios" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Edicion" class="control-label"></label>
-                <input asp-for="Edicion" class="form-control" />
-                <span asp-validation-for="Edicion" class="text-danger"></span>
+                <label asp-for="AlumnoColaboradores.Alumnos.Edicion" class="control-label"></label>
+                <input asp-for="AlumnoColaboradores.Alumnos.Edicion" class="form-control" />
+                <span asp-validation-for="AlumnoColaboradores.Alumnos.Edicion" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Colaboradores" class="control-label"></label>
+                <label asp-for="AlumnoColaboradores.Colaboradores" class="control-label"></label>
                 <select>
                   
                     @foreach (Colaboradores colaboradores in Model.Colaboradores)

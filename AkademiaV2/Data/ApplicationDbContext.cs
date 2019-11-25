@@ -5,6 +5,7 @@ using AkademiaV2.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using AkademiaV2.Models.ViewModels;
 
 namespace AkademiaV2.Data
 {
@@ -25,6 +26,6 @@ namespace AkademiaV2.Data
         public DbSet<AkademiaV2.Models.Sesiones> Sesiones { get; set; }
         public DbSet<AkademiaV2.Models.Talleres> Talleres { get; set; }
         public DbSet<AkademiaV2.Models.Akademia> Akademia { get; set; }
-       //
+  
     }
 }

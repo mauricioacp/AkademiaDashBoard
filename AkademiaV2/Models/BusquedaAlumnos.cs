@@ -9,7 +9,7 @@ namespace AkademiaV2.Models
     {
         public int Id { get; set; }
 
-        public Alumnos Alumnos { get; set; }
+        public Alumnos Alumno { get; set; }
         public string Nombre { get; set; }
         public string RutaDrive { get; set; }
     }

@@ -28,11 +28,11 @@ namespace AkademiaV2.Models
         public string Comentarios { get; set; }
         [Required(ErrorMessage = "Introduzca la Edición Actual de su Delegación")]
         public int Edicion { get; set; }
-        public AlumnosTalleres AlumnosTalleres { get; set; }
+        public AlumnosTalleres AlumnoTaller { get; set; }
         public List<Sesiones> Sesiones { get; set; }
         public Akademia Akademia { get; set; }
         [Display(Name = "Cloud Link: Entrevista")]
         public string Entrevista { get; set; }
-        public List<Colaboradores> Colaboradores { get; set; }
+        public Colaboradores Colaborador { get; set; }
     }
 }

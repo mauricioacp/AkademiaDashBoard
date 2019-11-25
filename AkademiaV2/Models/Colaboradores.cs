@@ -28,7 +28,7 @@ namespace AkademiaV2.Models
         public string CloudCarpetaPrincipal { get; set; }//Carpeta Principal
         [Required(ErrorMessage = "Introduzca la Edición Actual de su Delegación")]
         public int Edicion { get; set; }
-        public ColaboradoresTalleres ColaboradoresTalleres { get; set; }
+        public ColaboradoresTalleres ColaboradorTaller { get; set; }
         public List<Sesiones> Sesiones { get; set; }
         public Akademia Akademia { get; set; }
         [Display(Name = "Tipo:" +

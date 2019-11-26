@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AkademiaV2.Data;
 using AkademiaV2.Models;
+using AkademiaV2.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace AkademiaV2.Services
@@ -21,10 +22,10 @@ namespace AkademiaV2.Services
             return _context.Alumnos.Any(e => e.Id == id);
         }
 
-        public async Task CreateAlumnoAsync(Alumnos alumnos)
+        public async Task CreateAlumnoAsync(Alumnos alumno)
         {
-            await _context.AddAsync(alumnos);
-            await _context.Alumnos.Include(x => x.Colaborador).ToListAsync();
+         
+            await _context.Alumnos.AddAsync(alumno);
             await _context.SaveChangesAsync();
         }
 

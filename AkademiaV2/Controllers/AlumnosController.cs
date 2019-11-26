@@ -65,17 +65,53 @@ namespace AkademiaV2.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+       
+        [Authorize(Roles = "SuperAdmin")]
+        public async Task<IActionResult> EleccionColaborador(AlumnoColaborador alumnoColaborador)
+        {
+         
+                 Alumnos alumno =new Alumnos
+                {
+                    Nombre = alumnoColaborador.Alumnos.Nombre,
+                    Apellidos =alumnoColaborador.Alumnos.Apellidos,
+                    CartaMotivacional = alumnoColaborador.Alumnos.CartaMotivacional,
+                    Akademia = alumnoColaborador.Alumnos.Akademia,
+                    Colaborador = alumnoColaborador.Alumnos.Colaborador,
+                    Comentarios = alumnoColaborador.Alumnos.Comentarios,
+                    Edicion = alumnoColaborador.Alumnos.Edicion,
+                    Email = alumnoColaborador.Alumnos.Email,
+                    Entrevista = alumnoColaborador.Alumnos.Entrevista,
+                    FechaNacimiento = alumnoColaborador.Alumnos.FechaNacimiento,
+                    Id = alumnoColaborador.Alumnos.Id,
+                    Imagen = alumnoColaborador.Alumnos.Imagen,
+                    Telefono = alumnoColaborador.Alumnos.Telefono
+                };
+               
+                 return View( alumno);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ConfirmarAlumno(Alumnos alumnos)
+        {
+            await _alumnosServices.CreateAlumnoAsync(alumnos);
+           
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "SuperAdmin")]
-        public async Task<IActionResult> Create(AlumnoColaborador alumnoColaborador)
+        public async Task<IActionResult> Create(Alumnos alumnos)
         {
             if (ModelState.IsValid)
             {
-                await _alumnosServices.CreateAlumnoAsync(alumnoColaborador.Alumnos);
-             
+               
+                await _alumnosServices.CreateAlumnoAsync(alumnos);
                 return RedirectToAction(nameof(Index));
+
+               
             }
-            return View(alumnoColaborador);
+            return View(alumnos);
         }
 
         // GET: Alumnos/Edit/5

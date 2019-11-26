@@ -53,6 +53,11 @@
                 <span asp-validation-for="AlumnoColaboradores.Alumnos.Comentarios" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="AlumnoColaboradores.Alumnos.Entrevista" class="control-label"></label>
+                <input asp-for="AlumnoColaboradores.Alumnos.Entrevista" class="form-control" />
+                <span asp-validation-for="AlumnoColaboradores.Alumnos.Entrevista" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="AlumnoColaboradores.Alumnos.Edicion" class="control-label"></label>
                 <input asp-for="AlumnoColaboradores.Alumnos.Edicion" class="form-control" />
                 <span asp-validation-for="AlumnoColaboradores.Alumnos.Edicion" class="text-danger"></span>
@@ -64,16 +69,16 @@
                 <select class="form-control" asp-for="AlumnoColaboradores.Alumnos.Colaborador.Id">
 
 
-                    @foreach (Colaboradores colaboradores in Model.Colaboradores)
+                    @foreach (Colaboradores colaboradores in Model.Colaboradores.Where(o=>o.TipoColaborador=="Acompañante" || o.TipoColaborador=="Ambos"))
                     {
+                     
+
                         <option value="@colaboradores.Id">@colaboradores.Nombre</option>
+                        
+
                     }
                 </select>
-                <select class="form-control" asp-for="AlumnoColaboradores.Alumnos.Akademia.Id">
-                    
-                        <option value="@Model.Akademia.Id">@Model.Akademia.Ciudad.ToString();</option>
-                    
-                </select>
+
             </div>
 
             <div class="form-group">

@@ -23,7 +23,9 @@ namespace AkademiaV2.Services
 
         public async Task CreateColaboradorAsync(Colaboradores colaboradores)
         {
-            await _context.AddAsync(colaboradores); 
+            await _context.AddAsync(colaboradores);
+          
+
             await _context.SaveChangesAsync();
         }
 
@@ -41,6 +43,7 @@ namespace AkademiaV2.Services
 
         public async Task<List<Colaboradores>> GetColaboradoresAsync()
         {
+            _context.Colaboradores.Include(o => o.Akademia);
             var colaboradores= await _context.Colaboradores.OrderBy(x => x.Nombre).ToListAsync();
             return colaboradores;
         }

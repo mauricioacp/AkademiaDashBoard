@@ -45,20 +45,13 @@
                                                         <td>
                                                             <div class="d-flex">
                                                                 <div class="avatar avatar-md mr-3 mb-2 mt-1">
-                                                                    @if (colaboradores.TipoColaborador == "Facilitador")
-                                                                    {
+                                                                  
 
-                                                                        <span class="avatar-letter avatar-letter-f  avatar-md circle"></span>
-                                                                    }
-                                                                    else if (colaboradores.TipoColaborador == "Acompañanate")
-                                                                    {
-
-                                                                        <span class="avatar-letter avatar-letter-c  avatar-md circle"></span>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <span class="avatar-letter avatar-letter-a  avatar-md circle"></span>
-                                                                    }
+                                                                        <div class="avatar avatar-md mr-3 mb-2 mt-1">
+                                                                            <img src="@colaboradores.Imagen" alt="@colaboradores.Nombre" />
+                                                                        </div> 
+                                                                        
+                                                                   
                                                                 </div>
                                                                 <div>
                                                                     <div>
@@ -74,7 +67,7 @@
                                                         <td>
                                                       
                                                             <a asp-controller="Colaboradores" asp-action="Profile"  asp-route-id="@colaboradores.Id"><i class="icon-eye mr-3"></i></a>
-                                                            <a asp-controller="Colaboradores" asp-action="Edit"><i class="icon-pencil"></i></a>
+                                                            <a asp-controller="Colaboradores" asp-action="Edit" asp-route-id="@colaboradores.Id"><i class="icon-pencil"></i></a>
                                                         </td>
                                                     </tr>
                                                 }

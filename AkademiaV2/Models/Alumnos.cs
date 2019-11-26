@@ -30,9 +30,11 @@ namespace AkademiaV2.Models
         public int Edicion { get; set; }
         public AlumnosTalleres AlumnoTaller { get; set; }
         public List<Sesiones> Sesiones { get; set; }
+        public int AkademiaId { get; set; }
         public Akademia Akademia { get; set; }
         [Display(Name = "Cloud Link: Entrevista")]
         public string Entrevista { get; set; }
+        public int ColaboradorId { get; set; }
         public Colaboradores Colaborador { get; set; }
     }
 }

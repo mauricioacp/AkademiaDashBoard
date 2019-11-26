@@ -72,17 +72,19 @@ namespace AkademiaV2.Controllers
         public async Task<IActionResult> EleccionColaborador(AlumnoColaborador alumnoColaborador)
         {
             int id = alumnoColaborador.AlumnoColaboradores.Alumnos.Colaborador.Id;
-            int idaka = alumnoColaborador.AlumnoColaboradores.Alumnos.Akademia.Id;
             Colaboradores colaboradores = await _colaboradoresServices.GetColaboradorByIdAsync(id);
-            Akademia akademia = await _akademiaServices.GetAkademiaByIdAsync(idaka);
+          
+            Akademia akademia = await _akademiaServices.GetAkademiaByIdAsync(1);
 
             Alumnos alumno = new Alumnos
             {
                 Nombre = alumnoColaborador.AlumnoColaboradores.Alumnos.Nombre,
                 Apellidos = alumnoColaborador.AlumnoColaboradores.Alumnos.Apellidos,
                 CartaMotivacional = alumnoColaborador.AlumnoColaboradores.Alumnos.CartaMotivacional,
+                AkademiaId = akademia.Id,
                 Akademia = akademia,
                  Colaborador = colaboradores,
+                 ColaboradorId = colaboradores.Id,
                     Comentarios =alumnoColaborador.AlumnoColaboradores.Alumnos.Comentarios,
                     Edicion = alumnoColaborador.AlumnoColaboradores.Alumnos.Edicion,
                     Email = alumnoColaborador.AlumnoColaboradores.Alumnos.Email,

@@ -11,6 +11,6 @@ namespace AkademiaV2.Models.ViewModels
         public Alumnos Alumnos { get; set; }
         public List<Colaboradores> Colaboradores { get; set; }
         public AlumnoColaborador AlumnoColaboradores { get; set; }
-        public Akademia Akademia { get; set; }
+       
     }
 }

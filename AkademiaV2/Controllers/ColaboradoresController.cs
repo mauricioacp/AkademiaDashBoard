@@ -14,14 +14,21 @@ namespace AkademiaV2.Controllers
     public class ColaboradoresController : Controller
     {
         private readonly IColaboradores _colaboradoresServices;
+        private readonly IAkademia _akademiaServices;
 
-        public ColaboradoresController(IColaboradores colaboradoresServices)
+        public ColaboradoresController(IColaboradores colaboradoresServices, IAkademia akademiaServices)
         {
             _colaboradoresServices = colaboradoresServices;
+            _akademiaServices = akademiaServices;
         }
 
         // GET: Colaboradores
         public async Task<IActionResult> Index()
+        {
+            return View(await _colaboradoresServices.GetColaboradoresAsync());
+        }
+
+        public async Task<IActionResult> Facilitadores()
         {
             return View(await _colaboradoresServices.GetColaboradoresAsync());
         }
@@ -32,9 +39,12 @@ namespace AkademiaV2.Controllers
             {
                 return NotFound();
             }
-           
+
             var colaborador = await _colaboradoresServices.GetColaboradorByIdAsync(id);
-            
+            Akademia akademia = await _akademiaServices.GetAkademiaByIdAsync(1);
+
+            colaborador.Akademia = akademia;
+
             if (colaborador == null)
             {
                 return NotFound();
@@ -52,6 +62,7 @@ namespace AkademiaV2.Controllers
             }
 
             var colaborador = await _colaboradoresServices.GetColaboradorByIdAsync(id);
+          
             if (colaborador== null)
             {
                 return NotFound();
@@ -90,6 +101,9 @@ namespace AkademiaV2.Controllers
             }
 
             var colaboradores = await _colaboradoresServices.GetColaboradorByIdAsync(id);
+          
+            
+
             if (colaboradores == null)
             {
                 return NotFound();
@@ -102,7 +116,7 @@ namespace AkademiaV2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellidos,Imagen,Email,Telefono,CartaMotivacional,FechaNacimiento,Comentarios,Edicion,TipoColaborador")] Colaboradores colaboradores)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellidos,Imagen,Email,Telefono,CartaMotivacional,FechaNacimiento,Comentarios,Edicion,TipoColaborador,CloudCarpetaPrincipal,Akademia")] Colaboradores colaboradores)
         {
             if (id != colaboradores.Id)
             {
@@ -113,6 +127,9 @@ namespace AkademiaV2.Controllers
             {
                 try
                 {
+                    Akademia akademia = await _akademiaServices.GetAkademiaByIdAsync(1);
+
+                    colaboradores.Akademia = akademia;
                     await _colaboradoresServices.UpdateColaboradorAsync(colaboradores);
                 }
                 catch (DbUpdateConcurrencyException)

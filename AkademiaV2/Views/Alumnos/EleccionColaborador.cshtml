@@ -3,116 +3,132 @@
     ViewData["Title"] = "EleccionColaborador";
 }
 
-<h1>EleccionColaborador</h1>
 
 
-<h4>Alumnos</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-controller="Alumnos" asp-action="ConfirmarAlumno">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="container animatedParent animateOnce">
-                <div class="invoice white shadow">
-                    <div class="p-5">
-                        <!-- title row -->
-                        <div class="row">
-                            <div class="col-12">
-                                <img class="w-80px mb-4" src="@Model.Imagen" alt="">
-                                <div class="float-right">
-                                    <h4>Confirmar Alumno #@Model.Id</h4><br>
-                                    <table>
-                                        <tr>
-                                            <td class="font-weight-normal">Acompañante:<td>
-                                            <td>@Model.Colaborador.Nombre</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-weight-normal">Delegación:</td>
-                                            <td>@Model.Akademia.Ciudad</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-weight-normal">Edición</td>
-                                            <td> @Model.Akademia.Edicion</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-weight-normal">Carpeta Principal</td>
-                                            <td><a href="@Model.Comentarios">Link</a></td>
-                                        </tr>
-                                    </table>
 
-                                </div>
+<div class="container animatedParent animateOnce">
+    <div class="invoice white shadow">
+        <div class="p-5">
+            <!-- title row -->
+            <div class="row">
+                <div class="col-12">
+                    <img class="w-80px mb-5" src="@Model.Imagen" alt="">
 
-                            </div>
-                            <!-- /.col -->
-                        </div>
-                        </div>
+                    <div class="float-right">
+                        <h4>Confirmar Alumno </h4><br>
+
+                        <table>
+                            <tr>
+                                <td class="font-weight-normal">Acompañante:</td>
+                                <td>@Model.Colaborador.Nombre</td>
+
+                            </tr>
+                            <tr>
+                                <td class="font-weight-normal">Delegación:</td>
+                                <td>@Model.Akademia.Ciudad</td>
+                            </tr>
+                            <tr>
+                                <td class="font-weight-normal">Edición</td>
+                                <td> @Model.Akademia.Edicion</td>
+                            </tr>
+                            <tr>
+                                <td class="font-weight-normal">Carpeta Principal</td>
+                                <td><a href="@Model.Comentarios">Link</a></td>
+
+                            </tr>
+                        </table>
+
                     </div>
+
                 </div>
-            
+                <!-- /.col -->
+            </div>
 
-                        <!-- info row -->
-                        <div class="row my-3 ">
-                            <div class="col-sm-4">
-                                
-                                <address>
-                                    <strong>Nombre:</strong><br>
-                                    Apellidos:<br>
-                                    Email:<br>
-                                    Fecha de Nacimiento:<br>
-                                    Teléfono:
-                                </address>
-                            </div>
-                            <!-- /.col -->
-                            <div class="col-sm-4">
-                                
-                                <address>
-                                    <strong>@Model.Nombre</strong><br>
-                                    @Model.Apellidos <br>
-                                    @Model.Email<br>
-                                    @Model.FechaNacimiento<br>
-                                    @Model.Telefono
-                                </address>
-                            </div>
-                            <!-- /.col -->
-                            <div class="col-sm-4">
 
-                            </div>
-                            <!-- /.col -->
-                        </div>
-                        <!-- /.row -->
-                        <!-- Table row -->
-                        <div class="row my-3">
-                            <div class="col-12 table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Sesión</th>
-                                            <th>Acompañante</th>
-                                            <th>Fecha</th>
-                                            <th>Comentarios</th>
-                                            <th>"Bool Visto"</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>#</td>
-                                            <td>@Model.Colaborador.Nombre</td>
-                                            <td><input type="date"  /></td>
-                                            <td></td>
-                                            <td><select>
-    <option value="true">Si</option><option value="false">No</option>
-</select><td>
-                                        </tr>
-                                      
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.col -->
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" value="Crear Alumno" class="btn btn-primary" />
-                        </div>
-        </form>
+
+            <!-- info row -->
+            <div class="row my-3 ">
+                <div class="col-sm-4">
+
+                    <address>
+                        <strong>Nombre:</strong><br>
+                        Apellidos:<br>
+                        Email:<br>
+                        Fecha de Nacimiento:<br>
+                        Teléfono:
+                    </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4">
+
+                    <address>
+                        <strong>@Model.Nombre</strong><br>
+                        @Model.Apellidos <br>
+                        @Model.Email<br>
+                        @Model.FechaNacimiento<br>
+                        @Model.Telefono
+                    </address>
+                </div>
+
+                <!-- /.col -->
+                <div class="col-sm-4">
+
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+            <!-- Table row -->
+            <div class="row my-3">
+                <div class="col-12 table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Sesión</th>
+                                <th>Acompañante</th>
+                                <th>Fecha</th>
+                                <th>Comentarios</th>
+                                <th>"Bool Visto"</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#</td>
+                                <td>@Model.Colaborador.Nombre</td>
+                                <td><input type="date" /></td>
+                                <td></td>
+                                <td>
+                                    <select>
+                                        <option value="true">Si</option>
+                                        <option value="false">No</option>
+                                    </select>
+                                <td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.col -->
+            </div>
+        </div>
     </div>
+</div>
+<div class="form-group">
+    <form asp-controller="Alumnos" asp-action="ConfirmarAlumno">
+        <input type="hidden" value="@Model.Imagen" asp-for="Imagen" />
+
+        <input type="hidden" value="@Model.Nombre" asp-for="Nombre" />
+        <input type="hidden" value="@Model.Apellidos" asp-for="Apellidos" />
+        <input type="hidden" value="@Model.Edicion" asp-for="Edicion" />
+        <input type="hidden" value="@Model.Email" asp-for="Email" />
+        <input type="hidden" value="@Model.FechaNacimiento" asp-for="FechaNacimiento" />
+        <input type="hidden" value="@Model.CartaMotivacional" asp-for="CartaMotivacional" />
+        <input type="hidden" value="@Model.Entrevista" asp-for="Entrevista" />
+        <input type="hidden" value="@Model.Telefono" asp-for="Telefono" />
+        <input type="hidden" value="@Model.ColaboradorId" asp-for="ColaboradorId" />
+        <input type="hidden" value="@Model.AkademiaId" asp-for="AkademiaId" />
+        <input type="submit" value="Confirmar Alumno" />
+    </form>
+        <br />
+        
 </div>
 

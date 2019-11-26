@@ -158,9 +158,13 @@
                                             @foreach (Colaboradores colaboradores in item.Colaboradores)
                                             {
 
-                                                    <li class="list-inline-item ">
-                                                        <img src="@colaboradores.Imagen" alt="@colaboradores.Nombre" class="img-responsive w-40px circle mb-3">
-                                                    </li>
+                                            <li class="list-inline-item ">
+
+                                                <div class="avatar avatar-md mr-3 mb-2 mt-1">
+                                                    <img src="@colaboradores.Imagen" alt="@colaboradores.Nombre" >
+                                                </div>
+                                              
+                                            </li>
                                             }
 
 

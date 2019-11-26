@@ -17,11 +17,13 @@ namespace AkademiaV2.Controllers
     {
         private readonly IAlumnos _alumnosServices;
         private readonly IColaboradores _colaboradoresServices;
+        private readonly IAkademia _akademiaServices;
 
-        public AlumnosController(IAlumnos alumnosServices, IColaboradores colaboradoresServices)
+        public AlumnosController(IAlumnos alumnosServices, IColaboradores colaboradoresServices,IAkademia akademiaServices)
         {
             _alumnosServices = alumnosServices;
             _colaboradoresServices = colaboradoresServices;
+            _akademiaServices = akademiaServices;
         }
 
         // GET: Alumnos
@@ -69,25 +71,29 @@ namespace AkademiaV2.Controllers
         [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> EleccionColaborador(AlumnoColaborador alumnoColaborador)
         {
-         
-                 Alumnos alumno =new Alumnos
-                {
-                    Nombre = alumnoColaborador.Alumnos.Nombre,
-                    Apellidos =alumnoColaborador.Alumnos.Apellidos,
-                    CartaMotivacional = alumnoColaborador.Alumnos.CartaMotivacional,
-                    Akademia = alumnoColaborador.Alumnos.Akademia,
-                    Colaborador = alumnoColaborador.Alumnos.Colaborador,
-                    Comentarios = alumnoColaborador.Alumnos.Comentarios,
-                    Edicion = alumnoColaborador.Alumnos.Edicion,
-                    Email = alumnoColaborador.Alumnos.Email,
-                    Entrevista = alumnoColaborador.Alumnos.Entrevista,
-                    FechaNacimiento = alumnoColaborador.Alumnos.FechaNacimiento,
-                    Id = alumnoColaborador.Alumnos.Id,
-                    Imagen = alumnoColaborador.Alumnos.Imagen,
-                    Telefono = alumnoColaborador.Alumnos.Telefono
+            int id = alumnoColaborador.AlumnoColaboradores.Alumnos.Colaborador.Id;
+            int idaka = alumnoColaborador.AlumnoColaboradores.Alumnos.Akademia.Id;
+            Colaboradores colaboradores = await _colaboradoresServices.GetColaboradorByIdAsync(id);
+            Akademia akademia = await _akademiaServices.GetAkademiaByIdAsync(idaka);
+
+            Alumnos alumno = new Alumnos
+            {
+                Nombre = alumnoColaborador.AlumnoColaboradores.Alumnos.Nombre,
+                Apellidos = alumnoColaborador.AlumnoColaboradores.Alumnos.Apellidos,
+                CartaMotivacional = alumnoColaborador.AlumnoColaboradores.Alumnos.CartaMotivacional,
+                Akademia = akademia,
+                 Colaborador = colaboradores,
+                    Comentarios =alumnoColaborador.AlumnoColaboradores.Alumnos.Comentarios,
+                    Edicion = alumnoColaborador.AlumnoColaboradores.Alumnos.Edicion,
+                    Email = alumnoColaborador.AlumnoColaboradores.Alumnos.Email,
+                    Entrevista = alumnoColaborador.AlumnoColaboradores.Alumnos.Entrevista,
+                    FechaNacimiento = alumnoColaborador.AlumnoColaboradores.Alumnos.FechaNacimiento,                 
+                    Imagen = alumnoColaborador.AlumnoColaboradores.Alumnos.Imagen,
+                    Telefono =alumnoColaborador.AlumnoColaboradores.Alumnos.Telefono,
+                    
                 };
                
-                 return View( alumno);
+                 return View(alumno);
         }
 
         [HttpPost]

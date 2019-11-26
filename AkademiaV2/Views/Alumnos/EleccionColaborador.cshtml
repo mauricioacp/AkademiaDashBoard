@@ -1,4 +1,4 @@
-﻿@model AkademiaV2.Models.ViewModels.AlumnoColaborador
+﻿@model AkademiaV2.Models.Alumnos
 @{
     ViewData["Title"] = "EleccionColaborador";
 }
@@ -12,67 +12,107 @@
     <div class="col-md-4">
         <form asp-controller="Alumnos" asp-action="ConfirmarAlumno">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="AlumnoColaboradores.Alumnos.Nombre" class="control-label"></label>
-                <input asp-for="AlumnoColaboradores.Alumnos.Nombre" class="form-control" />
-                <span asp-validation-for="AlumnoColaboradores.Alumnos.Nombre" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AlumnoColaboradores.Alumnos.Apellidos" class="control-label"></label>
-                <input asp-for="AlumnoColaboradores.Alumnos.Apellidos" class="form-control" />
-                <span asp-validation-for="AlumnoColaboradores.Alumnos.Apellidos" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AlumnoColaboradores.Alumnos.Imagen" class="control-label"></label>
-                <input asp-for="AlumnoColaboradores.Alumnos.Imagen" class="form-control" />
-                <span asp-validation-for="AlumnoColaboradores.Alumnos.Imagen" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AlumnoColaboradores.Alumnos.Email" class="control-label"></label>
-                <input asp-for="AlumnoColaboradores.Alumnos.Email" class="form-control" />
-                <span asp-validation-for="AlumnoColaboradores.Alumnos.Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AlumnoColaboradores.Alumnos.Telefono" class="control-label"></label>
-                <input asp-for="AlumnoColaboradores.Alumnos.Telefono" class="form-control" />
-                <span asp-validation-for="AlumnoColaboradores.Alumnos.Telefono" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AlumnoColaboradores.Alumnos.CartaMotivacional" class="control-label"></label>
-                <input asp-for="AlumnoColaboradores.Alumnos.CartaMotivacional" class="form-control" />
-                <span asp-validation-for="AlumnoColaboradores.Alumnos.CartaMotivacional" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AlumnoColaboradores.Alumnos.FechaNacimiento" class="control-label"></label>
-                <input asp-for="AlumnoColaboradores.Alumnos.FechaNacimiento" type="date" asp-format="{0:d}" class="form-control" />
-                <span asp-validation-for="AlumnoColaboradores.Alumnos.FechaNacimiento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AlumnoColaboradores.Alumnos.Comentarios" class="control-label"></label>
-                <input asp-for="AlumnoColaboradores.Alumnos.Comentarios" class="form-control" />
-                <span asp-validation-for="AlumnoColaboradores.Alumnos.Comentarios" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AlumnoColaboradores.Alumnos.Edicion" class="control-label"></label>
-                <input asp-for="AlumnoColaboradores.Alumnos.Edicion" class="form-control" />
-                <span asp-validation-for="AlumnoColaboradores.Alumnos.Edicion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AlumnoColaboradores.Colaboradores" class="control-label"></label>
-                <select>
+            <div class="container animatedParent animateOnce">
+                <div class="invoice white shadow">
+                    <div class="p-5">
+                        <!-- title row -->
+                        <div class="row">
+                            <div class="col-12">
+                                <img class="w-80px mb-4" src="@Model.Imagen" alt="">
+                                <div class="float-right">
+                                    <h4>Confirmar Alumno #@Model.Id</h4><br>
+                                    <table>
+                                        <tr>
+                                            <td class="font-weight-normal">Acompañante:<td>
+                                            <td>@Model.Colaborador.Nombre</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-weight-normal">Delegación:</td>
+                                            <td>@Model.Akademia.Ciudad</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-weight-normal">Edición</td>
+                                            <td> @Model.Akademia.Edicion</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-weight-normal">Carpeta Principal</td>
+                                            <td><a href="@Model.Comentarios">Link</a></td>
+                                        </tr>
+                                    </table>
 
-                    @foreach (Colaboradores colaboradores in Model.Colaboradores)
-                    {
-                        <option value="@colaboradores.Id">@colaboradores.Nombre</option>
-                    }
+                                </div>
 
-                </select>
-                <span asp-validation-for="Colaboradores" class="text-danger"></span>
-            </div>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            
 
-            <div class="form-group">
-                <input type="submit" value="Crear Alumno" class="btn btn-primary" />
-            </div>
+                        <!-- info row -->
+                        <div class="row my-3 ">
+                            <div class="col-sm-4">
+                                
+                                <address>
+                                    <strong>Nombre:</strong><br>
+                                    Apellidos:<br>
+                                    Email:<br>
+                                    Fecha de Nacimiento:<br>
+                                    Teléfono:
+                                </address>
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-sm-4">
+                                
+                                <address>
+                                    <strong>@Model.Nombre</strong><br>
+                                    @Model.Apellidos <br>
+                                    @Model.Email<br>
+                                    @Model.FechaNacimiento<br>
+                                    @Model.Telefono
+                                </address>
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-sm-4">
+
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                        <!-- Table row -->
+                        <div class="row my-3">
+                            <div class="col-12 table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Sesión</th>
+                                            <th>Acompañante</th>
+                                            <th>Fecha</th>
+                                            <th>Comentarios</th>
+                                            <th>"Bool Visto"</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>#</td>
+                                            <td>@Model.Colaborador.Nombre</td>
+                                            <td><input type="date"  /></td>
+                                            <td></td>
+                                            <td><select>
+    <option value="true">Si</option><option value="false">No</option>
+</select><td>
+                                        </tr>
+                                      
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Crear Alumno" class="btn btn-primary" />
+                        </div>
         </form>
     </div>
 </div>
+

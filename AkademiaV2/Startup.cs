@@ -41,6 +41,7 @@ namespace AkademiaV2
             services.AddTransient<IColaboradores,ColaboradoresServices>();
             services.AddTransient<ITalleres,TalleresServices>(); 
             services.AddTransient<IAkademia,AkademiaServices>();
+            services.AddTransient<IAlumnosTalleres,AlumnosTalleresServices>();
           
         }
 

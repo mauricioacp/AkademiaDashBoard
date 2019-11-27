@@ -28,7 +28,7 @@ namespace AkademiaV2.Models
         public string Comentarios { get; set; }
         [Required(ErrorMessage = "Introduzca la Edición Actual de su Delegación")]
         public int Edicion { get; set; }
-        public AlumnosTalleres AlumnoTaller { get; set; }
+        public List<AlumnosTalleres> AlumnosTalleres { get; set; }
         public List<Sesiones> Sesiones { get; set; }
         public int AkademiaId { get; set; }
         public Akademia Akademia { get; set; }

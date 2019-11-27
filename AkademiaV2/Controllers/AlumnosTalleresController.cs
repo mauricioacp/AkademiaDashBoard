@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AkademiaV2.Data;
 using AkademiaV2.Models;
 using AkademiaV2.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AkademiaV2.Controllers
 {
@@ -48,10 +49,29 @@ namespace AkademiaV2.Controllers
             return View(alumnosTalleres);
         }
 
-        // GET: AlumnosTalleres/Create
-        public IActionResult Create()
+        public async Task<IActionResult> ShowTaller_Alumnos(int? id)
         {
-            return View();
+            AlumnosTalleres alumnosTalleres = new AlumnosTalleres
+            {
+                //Alumnos = await _alumnosServices.GetAlumnos(),
+                Taller = await _talleresServices.GetTallerByIdAsync(id),
+            };
+
+            return View(alumnosTalleres);
+        }
+        // GET: AlumnosTalleres/Create
+        [Authorize(Roles = "SuperAdmin")]
+        public async Task<IActionResult> CreateTaller_Alumnos(AlumnosTalleres alumnosTalleres)
+        {
+           
+            if (ModelState.IsValid)
+            {
+                await _alumnosTalleresServices.CreateAlumnosTalleres(alumnosTalleres);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(alumnosTalleres);
+
+            
         }
 
         // POST: AlumnosTalleres/Create
@@ -63,7 +83,7 @@ namespace AkademiaV2.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _alumnosTalleresServices.CreateAlumnosTalleresAsync(alumnosTalleres);
+                await _alumnosTalleresServices.CreateAlumnosTalleres(alumnosTalleres);
                 return RedirectToAction(nameof(Index));
             }
             return View(alumnosTalleres);

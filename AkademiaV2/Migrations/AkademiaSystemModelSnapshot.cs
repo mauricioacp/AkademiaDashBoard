@@ -58,10 +58,7 @@ namespace AkademiaV2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AkademiaId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AlumnoTallerId")
+                    b.Property<int>("AkademiaId")
                         .HasColumnType("int");
 
                     b.Property<string>("Apellidos")
@@ -71,7 +68,7 @@ namespace AkademiaV2.Migrations
                     b.Property<string>("CartaMotivacional")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ColaboradorId")
+                    b.Property<int>("ColaboradorId")
                         .HasColumnType("int");
 
                     b.Property<string>("Comentarios")
@@ -105,8 +102,6 @@ namespace AkademiaV2.Migrations
 
                     b.HasIndex("AkademiaId");
 
-                    b.HasIndex("AlumnoTallerId");
-
                     b.HasIndex("ColaboradorId");
 
                     b.ToTable("Alumnos");
@@ -119,10 +114,15 @@ namespace AkademiaV2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("TallerId")
+                    b.Property<int?>("AlumnosId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TallerId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AlumnosId");
 
                     b.HasIndex("TallerId");
 
@@ -294,9 +294,6 @@ namespace AkademiaV2.Migrations
                     b.Property<string>("CloudCarpetaPrincipal")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ColaboradorTallerId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Edicion")
                         .HasColumnType("int");
 
@@ -328,8 +325,6 @@ namespace AkademiaV2.Migrations
 
                     b.HasIndex("AkademiaId");
 
-                    b.HasIndex("ColaboradorTallerId");
-
                     b.ToTable("Colaboradores");
                 });
 
@@ -340,10 +335,15 @@ namespace AkademiaV2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("ColaboradoresId")
+                        .HasColumnType("int");
+
                     b.Property<int>("TalleresId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ColaboradoresId");
 
                     b.HasIndex("TalleresId");
 
@@ -377,10 +377,10 @@ namespace AkademiaV2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AlumnoId")
+                    b.Property<int?>("AlumnoId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ColaboradorId")
+                    b.Property<int?>("ColaboradorId")
                         .HasColumnType("int");
 
                     b.Property<string>("Comentario")
@@ -586,22 +586,28 @@ namespace AkademiaV2.Migrations
                 {
                     b.HasOne("AkademiaV2.Models.Akademia", "Akademia")
                         .WithMany("Alumnos")
-                        .HasForeignKey("AkademiaId");
-
-                    b.HasOne("AkademiaV2.Models.AlumnosTalleres", "AlumnoTaller")
-                        .WithMany("Alumnos")
-                        .HasForeignKey("AlumnoTallerId");
+                        .HasForeignKey("AkademiaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("AkademiaV2.Models.Colaboradores", "Colaborador")
                         .WithMany()
-                        .HasForeignKey("ColaboradorId");
+                        .HasForeignKey("ColaboradorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AkademiaV2.Models.AlumnosTalleres", b =>
                 {
+                    b.HasOne("AkademiaV2.Models.Alumnos", "Alumnos")
+                        .WithMany("AlumnosTalleres")
+                        .HasForeignKey("AlumnosId");
+
                     b.HasOne("AkademiaV2.Models.Talleres", "Taller")
                         .WithMany("AlumnosTalleres")
-                        .HasForeignKey("TallerId");
+                        .HasForeignKey("TallerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AkademiaV2.Models.BusquedaAcompañantes", b =>
@@ -630,14 +636,14 @@ namespace AkademiaV2.Migrations
                     b.HasOne("AkademiaV2.Models.Akademia", "Akademia")
                         .WithMany("Colaboradores")
                         .HasForeignKey("AkademiaId");
-
-                    b.HasOne("AkademiaV2.Models.ColaboradoresTalleres", "ColaboradorTaller")
-                        .WithMany("Colaboradores")
-                        .HasForeignKey("ColaboradorTallerId");
                 });
 
             modelBuilder.Entity("AkademiaV2.Models.ColaboradoresTalleres", b =>
                 {
+                    b.HasOne("AkademiaV2.Models.Colaboradores", "Colaboradores")
+                        .WithMany("ColaboradoresTalleres")
+                        .HasForeignKey("ColaboradoresId");
+
                     b.HasOne("AkademiaV2.Models.Talleres", "Taller")
                         .WithMany("ColaboradoresTalleres")
                         .HasForeignKey("TalleresId")
@@ -656,15 +662,11 @@ namespace AkademiaV2.Migrations
                 {
                     b.HasOne("AkademiaV2.Models.Alumnos", "Alumno")
                         .WithMany("Sesiones")
-                        .HasForeignKey("AlumnoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AlumnoId");
 
                     b.HasOne("AkademiaV2.Models.Colaboradores", "Colaborador")
                         .WithMany("Sesiones")
-                        .HasForeignKey("ColaboradorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ColaboradorId");
                 });
 
             modelBuilder.Entity("AkademiaV2.Models.Talleres", b =>

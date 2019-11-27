@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AkademiaV2.Migrations
 {
-    public partial class @return : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -64,6 +64,36 @@ namespace AkademiaV2.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Colaboradores",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(nullable: false),
+                    Apellidos = table.Column<string>(nullable: false),
+                    Imagen = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: false),
+                    Telefono = table.Column<string>(nullable: false),
+                    CartaMotivacional = table.Column<string>(nullable: true),
+                    FechaNacimiento = table.Column<DateTime>(nullable: false),
+                    CloudCarpetaPrincipal = table.Column<string>(nullable: true),
+                    Edicion = table.Column<int>(nullable: false),
+                    AkademiaId = table.Column<int>(nullable: true),
+                    TipoColaborador = table.Column<string>(nullable: true),
+                    Entrevista = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Colaboradores", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Colaboradores_Akademia_AkademiaId",
+                        column: x => x.AkademiaId,
+                        principalTable: "Akademia",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -220,81 +250,6 @@ namespace AkademiaV2.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AlumnosTalleres",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TallerId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AlumnosTalleres", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AlumnosTalleres_Talleres_TallerId",
-                        column: x => x.TallerId,
-                        principalTable: "Talleres",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ColaboradoresTalleres",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TalleresId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ColaboradoresTalleres", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ColaboradoresTalleres_Talleres_TalleresId",
-                        column: x => x.TalleresId,
-                        principalTable: "Talleres",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Colaboradores",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(nullable: false),
-                    Apellidos = table.Column<string>(nullable: false),
-                    Imagen = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: false),
-                    Telefono = table.Column<string>(nullable: false),
-                    CartaMotivacional = table.Column<string>(nullable: true),
-                    FechaNacimiento = table.Column<DateTime>(nullable: false),
-                    CloudCarpetaPrincipal = table.Column<string>(nullable: true),
-                    Edicion = table.Column<int>(nullable: false),
-                    ColaboradorTallerId = table.Column<int>(nullable: true),
-                    AkademiaId = table.Column<int>(nullable: true),
-                    TipoColaborador = table.Column<string>(nullable: true),
-                    Entrevista = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Colaboradores", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Colaboradores_Akademia_AkademiaId",
-                        column: x => x.AkademiaId,
-                        principalTable: "Akademia",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Colaboradores_ColaboradoresTalleres_ColaboradorTallerId",
-                        column: x => x.ColaboradorTallerId,
-                        principalTable: "ColaboradoresTalleres",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Alumnos",
                 columns: table => new
                 {
@@ -309,10 +264,9 @@ namespace AkademiaV2.Migrations
                     FechaNacimiento = table.Column<DateTime>(nullable: false),
                     Comentarios = table.Column<string>(nullable: true),
                     Edicion = table.Column<int>(nullable: false),
-                    AlumnoTallerId = table.Column<int>(nullable: true),
-                    AkademiaId = table.Column<int>(nullable: true),
+                    AkademiaId = table.Column<int>(nullable: false),
                     Entrevista = table.Column<string>(nullable: true),
-                    ColaboradorId = table.Column<int>(nullable: true)
+                    ColaboradorId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -322,19 +276,13 @@ namespace AkademiaV2.Migrations
                         column: x => x.AkademiaId,
                         principalTable: "Akademia",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Alumnos_AlumnosTalleres_AlumnoTallerId",
-                        column: x => x.AlumnoTallerId,
-                        principalTable: "AlumnosTalleres",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Alumnos_Colaboradores_ColaboradorId",
                         column: x => x.ColaboradorId,
                         principalTable: "Colaboradores",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -380,6 +328,58 @@ namespace AkademiaV2.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ColaboradoresTalleres",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ColaboradoresId = table.Column<int>(nullable: true),
+                    TalleresId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ColaboradoresTalleres", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ColaboradoresTalleres_Colaboradores_ColaboradoresId",
+                        column: x => x.ColaboradoresId,
+                        principalTable: "Colaboradores",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ColaboradoresTalleres_Talleres_TalleresId",
+                        column: x => x.TalleresId,
+                        principalTable: "Talleres",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AlumnosTalleres",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AlumnosId = table.Column<int>(nullable: true),
+                    TallerId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AlumnosTalleres", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AlumnosTalleres_Alumnos_AlumnosId",
+                        column: x => x.AlumnosId,
+                        principalTable: "Alumnos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AlumnosTalleres_Talleres_TallerId",
+                        column: x => x.TallerId,
+                        principalTable: "Talleres",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "BusquedaAlumnos",
                 columns: table => new
                 {
@@ -410,8 +410,8 @@ namespace AkademiaV2.Migrations
                     Evaluacion = table.Column<string>(nullable: true),
                     Comentario = table.Column<string>(nullable: true),
                     Edicion = table.Column<int>(nullable: false),
-                    ColaboradorId = table.Column<int>(nullable: false),
-                    AlumnoId = table.Column<int>(nullable: false)
+                    ColaboradorId = table.Column<int>(nullable: true),
+                    AlumnoId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -421,13 +421,13 @@ namespace AkademiaV2.Migrations
                         column: x => x.AlumnoId,
                         principalTable: "Alumnos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Sesiones_Colaboradores_ColaboradorId",
                         column: x => x.ColaboradorId,
                         principalTable: "Colaboradores",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -436,14 +436,14 @@ namespace AkademiaV2.Migrations
                 column: "AkademiaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Alumnos_AlumnoTallerId",
-                table: "Alumnos",
-                column: "AlumnoTallerId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Alumnos_ColaboradorId",
                 table: "Alumnos",
                 column: "ColaboradorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AlumnosTalleres_AlumnosId",
+                table: "AlumnosTalleres",
+                column: "AlumnosId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AlumnosTalleres_TallerId",
@@ -510,9 +510,9 @@ namespace AkademiaV2.Migrations
                 column: "AkademiaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Colaboradores_ColaboradorTallerId",
-                table: "Colaboradores",
-                column: "ColaboradorTallerId");
+                name: "IX_ColaboradoresTalleres_ColaboradoresId",
+                table: "ColaboradoresTalleres",
+                column: "ColaboradoresId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ColaboradoresTalleres_TalleresId",
@@ -543,6 +543,9 @@ namespace AkademiaV2.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AlumnosTalleres");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -567,6 +570,9 @@ namespace AkademiaV2.Migrations
                 name: "BusquedaFacilitadores");
 
             migrationBuilder.DropTable(
+                name: "ColaboradoresTalleres");
+
+            migrationBuilder.DropTable(
                 name: "RegistroActividades");
 
             migrationBuilder.DropTable(
@@ -576,22 +582,16 @@ namespace AkademiaV2.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Talleres");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Alumnos");
 
             migrationBuilder.DropTable(
-                name: "AlumnosTalleres");
-
-            migrationBuilder.DropTable(
                 name: "Colaboradores");
-
-            migrationBuilder.DropTable(
-                name: "ColaboradoresTalleres");
-
-            migrationBuilder.DropTable(
-                name: "Talleres");
 
             migrationBuilder.DropTable(
                 name: "Akademia");

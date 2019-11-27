@@ -22,11 +22,12 @@ namespace AkademiaV2.Services
             return _context.AlumnosTalleres.Any(e => e.Id==id);
         }
 
-        public async Task CreateAlumnosTalleresAsync(AlumnosTalleres alumnosTalleres)
+        public async Task CreateAlumnosTalleres(AlumnosTalleres alumnosTalleres)
         {
             await _context.AddAsync(alumnosTalleres);
             await _context.SaveChangesAsync();
         }
+        
 
         public async Task DeleteAlumnosTalleresAsync(AlumnosTalleres alumnosTalleres)
         {

@@ -9,6 +9,7 @@ using AkademiaV2.Data;
 using AkademiaV2.Models;
 using AkademiaV2.Services;
 using Microsoft.AspNetCore.Authorization;
+using AkademiaV2.Models.ViewModels;
 
 namespace AkademiaV2.Controllers
 {
@@ -25,7 +26,92 @@ namespace AkademiaV2.Controllers
             _alumnosTalleresServices = alumnosTalleres;
 
         }
-        // GET: AlumnosTalleres
+
+
+        [Authorize(Roles = "SuperAdmin")]
+        public async Task<IActionResult> ShowTaller_Alumnos(int? id)
+        {
+
+            Alumnos_en_TallerVM alumnos_en_Taller = new Alumnos_en_TallerVM
+            {
+              Taller= await _talleresServices.GetTallerByIdAsync(id),
+              Escoger_Alumnos= await _alumnosServices.GetAlumnos(),
+
+
+            };
+            return View(alumnos_en_Taller);
+        }
+
+        // GET: AlumnosTalleres/Create
+        [Authorize(Roles = "SuperAdmin")]
+        public async Task<IActionResult> CreateTaller_Alumnos(Alumnos_en_TallerVM alumnos_En_TallerVM, int[] alumnos_id)
+        {
+            int Tallerid = alumnos_En_TallerVM.TallerId;
+            
+            foreach (int i in alumnos_id)
+            {
+
+            AlumnosTalleres alumnosTalleres = new AlumnosTalleres
+            {
+                Alumnos = await _alumnosServices.GetAlumnoByIdAsync(i),
+                Taller = await _talleresServices.GetTallerByIdAsync(Tallerid),
+            };
+           
+            if (ModelState.IsValid)
+            {
+                await _alumnosTalleresServices.CreateAlumnosTalleres(alumnosTalleres);
+               
+            }
+            }
+            
+            return View(nameof(Index));
+        }
+
+
+        [Authorize(Roles = "SuperAdmin")]
+        public async Task<IActionResult> ShowAlumnos_in_Taller(int? id)
+        {
+
+            Alumnos_en_TallerVM alumnos_en_Taller = new Alumnos_en_TallerVM
+            {
+                Taller = await _talleresServices.GetTallerByIdAsync(id),
+                Escoger_Alumnos = await _alumnosServices.GetAlumnos(),
+
+
+            };
+            
+            return View(alumnos_en_Taller);
+        }
+
+
+        //public async Task<IActionResult> ShowTaller_Alumnos(int? id)
+        //{
+        //    AlumnosTalleres alumnosTalleres = new AlumnosTalleres
+        //    {
+        //        //Alumnos = await _alumnosServices.GetAlumnos(),
+        //        Taller = await _talleresServices.GetTallerByIdAsync(id),
+        //    };
+
+        //    return View(alumnosTalleres);
+        //}
+
+
+
+        // POST: AlumnosTalleres/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id")] AlumnosTalleres alumnosTalleres)
+        {
+            if (ModelState.IsValid)
+            {
+                await _alumnosTalleresServices.CreateAlumnosTalleres(alumnosTalleres);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(alumnosTalleres);
+        }
+
         public async Task<IActionResult> Index()
         {
             return View(await _alumnosTalleresServices.GetAlumnosTalleres());
@@ -40,52 +126,12 @@ namespace AkademiaV2.Controllers
             }
 
             var alumnosTalleres = await _alumnosTalleresServices.GetAlumnosTalleresByIdAsync(id);
-               
+
             if (alumnosTalleres == null)
             {
                 return NotFound();
             }
 
-            return View(alumnosTalleres);
-        }
-
-        public async Task<IActionResult> ShowTaller_Alumnos(int? id)
-        {
-            AlumnosTalleres alumnosTalleres = new AlumnosTalleres
-            {
-                //Alumnos = await _alumnosServices.GetAlumnos(),
-                Taller = await _talleresServices.GetTallerByIdAsync(id),
-            };
-
-            return View(alumnosTalleres);
-        }
-        // GET: AlumnosTalleres/Create
-        [Authorize(Roles = "SuperAdmin")]
-        public async Task<IActionResult> CreateTaller_Alumnos(AlumnosTalleres alumnosTalleres)
-        {
-           
-            if (ModelState.IsValid)
-            {
-                await _alumnosTalleresServices.CreateAlumnosTalleres(alumnosTalleres);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(alumnosTalleres);
-
-            
-        }
-
-        // POST: AlumnosTalleres/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id")] AlumnosTalleres alumnosTalleres)
-        {
-            if (ModelState.IsValid)
-            {
-                await _alumnosTalleresServices.CreateAlumnosTalleres(alumnosTalleres);
-                return RedirectToAction(nameof(Index));
-            }
             return View(alumnosTalleres);
         }
 

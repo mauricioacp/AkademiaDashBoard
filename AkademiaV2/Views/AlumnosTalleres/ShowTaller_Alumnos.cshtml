@@ -1,7 +1,8 @@
-﻿@model AkademiaV2.Models.AlumnosTalleres
+﻿@model AkademiaV2.Models.ViewModels.Alumnos_en_TallerVM
 
 @{
     ViewData["Title"] = "Create";
+   
 }
 
 <h1>Create</h1>
@@ -22,20 +23,19 @@
 
             </div>
             <div class="form-group">
-                <label asp-for="Alumnos" class="control-label"></label>
-
-                <select multiple class="form-control" asp-for="Alumnos">
+                <label asp-for="Escoger_Alumnos" class="control-label"></label>
 
 
-                    @*@foreach (Alumnos alumnos in Model.Alumnos)
-                    {
+             
+                @foreach (Alumnos alumnos in Model.Escoger_Alumnos)
+                {
+                    <label >@alumnos.Nombre @alumnos.Apellidos</label>
+                
+                    <input type="checkbox" name="alumnos_id" id="@alumnos.Id" value="@alumnos.Id" />
 
 
-                        <option value="@alumnos.Id">@alumnos.Nombre @alumnos.Apellidos</option>
-
-
-                    }*@
-                </select>
+                }
+             
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

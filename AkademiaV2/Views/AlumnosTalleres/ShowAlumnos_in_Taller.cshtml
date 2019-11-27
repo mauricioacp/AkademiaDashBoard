@@ -1,24 +1,19 @@
-﻿@model IEnumerable<AkademiaV2.Models.AlumnosTalleres>
-
+﻿@model AkademiaV2.Models.ViewModels.Alumnos_en_TallerVM
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "ShowAlumnos_in_Taller";
 }
 
-<h1>Index</h1>
+<h1>ShowAlumnos_in_Taller</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-               
+
             </th>
         </tr>
     </thead>
     <tbody>
-      
     </tbody>
 </table>
 
@@ -30,8 +25,8 @@
                data-options='{ "paging": false; "searching":false}'>
             <thead>
                 <tr>
-                    <th> @Model.Where(o => o.TallerId == 1).Select(o => o.Taller.Nombre)</th>
-                    <th>Browser</th>
+                    <th> @Model.Taller.Nombre</th>
+                    <th>@Model.Taller.Akademia.Ciudad</th>
                     <th>Platform(s)</th>
                     <th>Engine version</th>
                     <th>CSS grade</th>
@@ -40,16 +35,16 @@
             <tbody>
                 @foreach (var item in Model.Where(o => o.TallerId == 1))
                 {
-                <tr>
-                    <td>@item.Alumnos.Nombre</td>
-                    <td>
-                        Internet
-                        Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
-                    <td>X</td>
-                </tr>
+                    <tr>
+                        <td>@item.Alumnos.Nombre</td>
+                        <td>
+                            Internet
+                            Explorer 4.0
+                        </td>
+                        <td>Win 95+</td>
+                        <td> 4</td>
+                        <td>X</td>
+                    </tr>
                 }
             </tbody>
             <tfoot>

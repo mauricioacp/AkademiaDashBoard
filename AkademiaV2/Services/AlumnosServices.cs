@@ -40,6 +40,16 @@ namespace AkademiaV2.Services
             return await _context.Alumnos.FirstOrDefaultAsync(m => m.Id == id);
         }
 
+        public async Task<List<Alumnos>> GetSeveralAlumnosById(int [] alumnosid)
+        {
+            List<Alumnos> Alumnos_en_taller = new List<Alumnos>();
+            foreach (int i in alumnosid)
+            {
+                Alumnos_en_taller.Add(await _context.Alumnos.FindAsync(i));
+            }
+            return Alumnos_en_taller;
+        }
+
         public async Task<List<Alumnos>> GetAlumnos()
         {
             var alumnos = await _context.Alumnos.OrderBy(x => x.Nombre).ToListAsync();

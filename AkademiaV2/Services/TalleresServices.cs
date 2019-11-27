@@ -31,6 +31,7 @@ namespace AkademiaV2.Services
 
         public async Task<Talleres> GetTallerByIdAsync(int? id)
         {
+        
             return await _context.Talleres.FirstOrDefaultAsync(m => m.Id == id);
         }
 

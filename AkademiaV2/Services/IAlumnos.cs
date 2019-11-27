@@ -15,5 +15,6 @@ namespace AkademiaV2.Services
         public Task UpdateAlumnoAsync(Alumnos alumnos);
         public Task DeleteAlumnoAsync(Alumnos alumnos);
         public bool AlumnoExist(int id);
+        public Task<List<Alumnos>> GetSeveralAlumnosById(int[] alumnosid);
     }
 }

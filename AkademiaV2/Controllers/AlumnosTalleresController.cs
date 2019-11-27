@@ -43,6 +43,7 @@ namespace AkademiaV2.Controllers
         }
 
         // GET: AlumnosTalleres/Create
+        //Creo registros con el mismo id taller y varios id alumnos a ese mismo taller.Se crean x id_alumnostaller
         [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> CreateTaller_Alumnos(Alumnos_en_TallerVM alumnos_En_TallerVM, int[] alumnos_id)
         {
@@ -67,20 +68,23 @@ namespace AkademiaV2.Controllers
             return View(nameof(Index));
         }
 
-
+        //Muestra los alumnos para escoger cuales van a ese taller por su id.
         [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> ShowAlumnos_in_Taller(int? id)
         {
+            var myAlumnoTallerObject = await _alumnosTalleresServices.GetTallerAlumnosByTallerId(id);
 
-            Alumnos_en_TallerVM alumnos_en_Taller = new Alumnos_en_TallerVM
+            List<Alumnos> alumnos_entaller = new List<Alumnos>();
+            foreach (AlumnosTalleres alumnosTalleres in myAlumnoTallerObject)
+            {
+                alumnos_entaller.Add(alumnosTalleres.Alumnos);
+            }
+            Alumnos_en_TallerVM Showalumnos_en_Taller = new Alumnos_en_TallerVM
             {
                 Taller = await _talleresServices.GetTallerByIdAsync(id),
-                Escoger_Alumnos = await _alumnosServices.GetAlumnos(),
-
-
+                Escoger_Alumnos = alumnos_entaller,
             };
-            
-            return View(alumnos_en_Taller);
+            return View(Showalumnos_en_Taller);
         }
 
 

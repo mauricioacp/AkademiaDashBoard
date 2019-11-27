@@ -64,8 +64,8 @@ namespace AkademiaV2.Controllers
                
             }
             }
-            
-            return View(nameof(Index));
+
+            return RedirectToAction("Index","Talleres");
         }
 
         //Muestra los alumnos para escoger cuales van a ese taller por su id.

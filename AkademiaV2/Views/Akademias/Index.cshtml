@@ -161,9 +161,9 @@
                                             <li class="list-inline-item ">
 
                                                 <div class="avatar avatar-md mr-3 mb-2 mt-1">
-                                                    <img src="@colaboradores.Imagen" alt="@colaboradores.Nombre" >
+                                                    <img src="@colaboradores.Imagen" alt="@colaboradores.Nombre">
                                                 </div>
-                                              
+                                                <a asp-controller="Colaboradores" asp-action="Profile" asp-route-id="@colaboradores.Id"><i class="icon-eye mr-3"></i></a>
                                             </li>
                                             }
 
@@ -179,54 +179,58 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="v-pills-payments" role="tabpanel" aria-labelledby="v-pills-payments-tab">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card no-b">
-                            <div class="card-header white b-0 p-3">
-                                <h4 class="card-title">Invoices</h4>
-                                <small class="card-subtitle mb-2 text-muted">Items purchase by users.</small>
-                            </div>
-                            <div class="collapse show" id="invoiceCard">
-                                <div class="card-body p-0">
-                                    <div class="table-responsive">
-                                        <table id="recent-orders"
-                                               class="table table-hover mb-0 ps-container ps-theme-default">
-                                            <thead class="bg-light">
-                                                <tr>
-                                                    <th>Fecha</th>
-                                                    <th>Nombre</th>
-                                                    <th>Carpetas</th>
-                                                    <th>Edición</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (Talleres talleres in item.Talleres)
-                                                {
 
-                                                <tr>
-                                                    <td>@talleres.FechaTaller</td>
-                                                    <td>@talleres.Nombre</td>
-                                                    <td><a href="@talleres.Karrusel">Cloud Link</a></td>
-                                                    <td><span class="badge badge-success">@talleres.Edicion</span></td>
-                                                    @if (talleres.FechaTaller < DateTime.Now)
-                                                    {
+                <div class="card my-3 no-b">
+                    <div class="card-body">
+                        <div class="card-title">Talleres </div>
+                       
+                        <table id="example2" class="table table-bordered table-hover data-tables"
+                               data-options='{ "paging": false; "searching":false}'>
+                            <thead>
+                                <tr>
+                                    <th>Colaborador</th>
+                                    <th>Nombre</th>
+                                    <th>Karrusel</th>
+                                    <th>Fecha</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                                                        <td> <div class="d-none d-lg-block"><span class="icon icon-circle s-12  mr-2 text-success"></span> Realizado</div></td>
-                                                    }
-                                                    else
-                                                    {
-                                                        <td> <div class="d-none d-lg-block"><span class="icon icon-circle s-12  mr-2 text-warning"></span> Pendiente</div></td>
-                                                    }
-                                                </tr>
-                                                }
-                                              
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                @foreach (Talleres talleres in item.Talleres)
+                                {
+                                <tr>
+                                    <td>
+                                        <div class="avatar avatar-md mr-3 mb-2 mt-1">
+                                            <img src="" alt="">
+                                        </div>
+                                    </td>
+                                    <td>@talleres.Nombre</td>
+                                    <td><a href="@talleres.Karrusel">Link</a></td>
+                                    <td>@talleres.FechaTaller.ToShortDateString()</td>
+                                    @if (talleres.FechaTaller < DateTime.Now)
+                                    {
+
+                                        <td> <div class="d-none d-lg-block"><span class="icon icon-circle s-12  mr-2 text-success"></span> Realizado</div></td>
+                                    }
+                                    else
+                                    {
+                                        <td> <div class="d-none d-lg-block"><span class="icon icon-circle s-12  mr-2 text-warning"></span> Pendiente</div></td>
+                                    }
+
+                                </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Colaborador</th>
+                                    <th>Nombre</th>
+                                    <th>Karrusel</th>
+                                    <th>Fecha</th>
+                                    <th>Status</th>
+                                </tr>
+                            </tfoot>
+                        </table>
                     </div>
                 </div>
 

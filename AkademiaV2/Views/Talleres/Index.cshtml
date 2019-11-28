@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AkademiaV2.Models.Talleres>
+﻿@model List<AkademiaV2.Models.Talleres>
 
 @{
     ViewData["Title"] = "Index";
@@ -73,9 +73,14 @@
                                             <td> <div class="d-none d-lg-block"><span class="r-3 badge badge-success ">Administrator</span></div></td>
                                             <td>
                                                 <a asp-controller="AlumnosTalleres" asp-action="ShowAlumnos_in_Taller" asp-route-id="@talleres.Id"><i class="icon-eye mr-3"></i></a>
-                                                
+                                              <td>
+
                                                 <a asp-controller="AlumnosTalleres" asp-action="ShowTaller_Alumnos" asp-route-id="@talleres.Id"><i class="icon-user"></i></a>
-                                                
+                                              </td>  
+                                              <td>
+                                                <a asp-controller="AlumnosTalleres" asp-action="ShowInfo_in_TallerAlumnos" asp-route-id="@talleres.Id"><i class="icon-user"></i></a>
+
+                                              </td>            
 
                                             </td>
                                         </tr>

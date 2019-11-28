@@ -8,6 +8,8 @@
 @inject IAlumnos _alumnosServices
 @inject IAlumnosTalleres _alumnosTalleresServices
 @inject ITalleres _talleresServices
+@inject IAkademia _akademiaServices
+
 
 <!Doctype html>
 <html lang="zxx">
@@ -261,8 +263,8 @@
                                                                 <div class="card no-b p-3">
                                                                     <div class="">
 
-                                                                        <div class="image mr-3  float-left">
-                                                                            <img class="w-40px" src="@tipo.Imagen" alt="@tipo.Nombre">
+                                                                        <div class="avatar avatar-md mr-3 mb-2 mt-1">
+                                                                            <img src="@tipo.Imagen" alt="@tipo.Nombre">
                                                                         </div>
                                                                         <div>
                                                                             <div>
@@ -292,8 +294,8 @@
                                                                 <div class="card no-b p-3">
                                                                     <div class="">
 
-                                                                        <div class="image mr-3  float-left">
-                                                                            <img class="w-40px" src="@tipo.Imagen" alt="@tipo.Nombre">
+                                                                        <div class="avatar avatar-md mr-3 mb-2 mt-1">
+                                                                            <img src="@tipo.Imagen" alt="@tipo.Nombre">
                                                                         </div>
                                                                         <div>
                                                                             <div>
@@ -321,7 +323,7 @@
                     </div>
 
                 </div>
-            </div>
+           </div>
         </aside>
 
         <div class="has-sidebar-left">
@@ -348,28 +350,32 @@
                     <div class="relative">
                         <div class="d-flex">
                             <div class="d-none d-md-block">
-                                <h1 class="nav-title">Dashboard</h1>
+                                <h1 class="nav-title">Akademia System</h1>
                             </div>
-                            <partial name="_LoginPartial" />
+                          
                         </div>
                     </div>
-
+                    
+                </div>
                 </div>
             </div>
-        </div>
+                <br />
+                
         <!--#navbar-->
         <div class="container">
             <main role="main" class="pb-3">
 
                 @RenderBody()
                 <br>
-            </main>
+              
+                </main>
         </div>
+    
 
-        <!-- Add the sidebar's background. This div must be placed
-        immediately after the control sidebar -->
-        <div class="control-sidebar-bg shadow white fixed"></div>
-    </div>
+    <!-- Add the sidebar's background. This div must be placed
+    immediately after the control sidebar -->
+    <div class="control-sidebar-bg shadow white fixed"></div>
+    
     <!--/#app -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

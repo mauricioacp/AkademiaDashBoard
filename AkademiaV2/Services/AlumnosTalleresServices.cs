@@ -47,7 +47,7 @@ namespace AkademiaV2.Services
 
         public async Task<List<AlumnosTalleres>> GetTallerAlumnosByTallerId(int? id)
         {
-            var alumnostalleres = await _context.AlumnosTalleres.Where(o => o.TallerId == id).Include(o=>o.Alumnos).ToListAsync();
+            var alumnostalleres = await _context.AlumnosTalleres.Where(o => o.TallerId == id).Include(o=>o.Alumnos.Colaborador).ToListAsync();
            
             return alumnostalleres;
         }

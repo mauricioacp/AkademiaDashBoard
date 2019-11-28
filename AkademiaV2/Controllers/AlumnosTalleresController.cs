@@ -86,6 +86,23 @@ namespace AkademiaV2.Controllers
             };
             return View(Showalumnos_en_Taller);
         }
+        [Authorize(Roles = "SuperAdmin")]
+        public async Task<IActionResult> ShowInfo_in_TallerAlumnos(int? id)
+        {
+            var myAlumnoTallerObject = await _alumnosTalleresServices.GetTallerAlumnosByTallerId(id);
+
+            List<Alumnos> alumnos_entaller = new List<Alumnos>();
+            foreach (AlumnosTalleres alumnosTalleres in myAlumnoTallerObject)
+            {
+                alumnos_entaller.Add(alumnosTalleres.Alumnos);
+            }
+            Alumnos_en_TallerVM Showalumnos_en_Taller = new Alumnos_en_TallerVM
+            {
+                Taller = await _talleresServices.GetTallerByIdAsync(id),
+                Escoger_Alumnos = alumnos_entaller,
+            };
+            return View(Showalumnos_en_Taller);
+        }
 
 
         //public async Task<IActionResult> ShowTaller_Alumnos(int? id)

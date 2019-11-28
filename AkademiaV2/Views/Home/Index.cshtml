@@ -1,8 +1,162 @@
-﻿@{
+﻿@using AkademiaV2.Data;
+@using AkademiaV2.Models;
+@using AkademiaV2.Services;
+@using Microsoft.AspNetCore.Identity;
+@model IEnumerable<AkademiaV2.Models.Akademia>
+@inject IAkademia _akademiaServices
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@foreach (Akademia item in await _akademiaServices.GetAkademiaAsync())
+{
+    <div class="container-fluid relative animatedParent animateOnce my-3">
+        <div class="row row-eq-height my-3 mt-3">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <div class="card no-b mb-3 bg-danger text-white">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div><i class="icon-university s-24"></i></div>
+                                    <div><span class="text-success">@item.Ciudad</span></div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="s-48 my-3 font-weight-lighter"><i class="icon-chrome"></i></div>
+                                    Akademia
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div class="card no-b mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div><i class="icon-timer s-18"></i></div>
+                                    <div><span class="badge badge-pill badge-primary">@DateTime.Now.ToShortDateString()</span></div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="s-48 my-3 font-weight-lighter">@item.Talleres.Where(o => o.FechaTaller < DateTime.Today).Count()</div>
+                                    Talleres realizados hasta la fecha.
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <div class="card no-b mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div><i class="icon-user-circle-o s-18"></i></div>
+                                    <div><span class="badge badge-pill badge-danger">Edición @item.Edicion</span></div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="s-48 my-3 font-weight-lighter">25</div>
+                                    Alumnos
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div class="card no-b mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div><i class="icon-user-times s-18"></i></div>
+                                    <div><span class="text-danger">Sede: @item.Ciudad</span></div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="s-48 my-3 font-weight-lighter">@item.Colaboradores.Count()</div>
+                                    Colaboradores
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card no-b p-2">
+                    <div class="card-body">
+                        <div class="card-body">
+                            <div class="height-full">
+
+
+                                <img id="imagenprincipal" src="@item.Imagen" alt="@item.Ciudad" />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class=" row my-3">
+        <div class="col-md-6">
+            <div class=" card b-0">
+                <div class="card-body">
+                    <table class="table table-hover earning-box">
+                        <tbody>
+                            @foreach (Colaboradores colaboradores in item.Colaboradores)
+                            {
+
+                                <tr class="no-b">
+                                    <td class="w-10">
+                                        <a asp-controller="Colaboradores" asp-action="Profile" asp-route-id="@colaboradores.Id" class="avatar avatar-lg">
+                                            <img src="@colaboradores.Imagen" alt="@colaboradores.Nombre">
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <h6>@colaboradores.Nombre</h6>
+                                        <small class="text-muted">@colaboradores.TipoColaborador</small>
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class=" card b-0">
+                <div class="card-body">
+                    <table class="table table-hover earning-box">
+                        <tbody>
+                            @foreach (Talleres talleres in item.Talleres)
+                            {
+
+                                <tr class="no-b">
+                                    <td class="w-10">
+                                        <a asp-controller="Talleres" asp-action="ShowTaller" asp-route-id="@talleres.Id" class="avatar avatar-lg">
+                                            <span class="avatar-letter avatar-letter-t  avatar-md circle"></span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <h6>@talleres.Nombre</h6>
+                                    </td>
+                                    <td>
+
+                                        @*<h6 >Asistencia: @talleres.AlumnosTalleres.Count()</h6>*@
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+}

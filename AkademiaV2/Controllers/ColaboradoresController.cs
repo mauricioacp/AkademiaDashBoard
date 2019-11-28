@@ -15,11 +15,13 @@ namespace AkademiaV2.Controllers
     {
         private readonly IColaboradores _colaboradoresServices;
         private readonly IAkademia _akademiaServices;
+        private readonly ITalleres _talleresServices;
 
-        public ColaboradoresController(IColaboradores colaboradoresServices, IAkademia akademiaServices)
+        public ColaboradoresController(IColaboradores colaboradoresServices, IAkademia akademiaServices,ITalleres talleresServices)
         {
             _colaboradoresServices = colaboradoresServices;
             _akademiaServices = akademiaServices;
+            _talleresServices = talleresServices;
         }
 
         // GET: Colaboradores

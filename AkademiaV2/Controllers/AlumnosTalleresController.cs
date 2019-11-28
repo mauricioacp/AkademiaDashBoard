@@ -36,7 +36,7 @@ namespace AkademiaV2.Controllers
             {
               Taller= await _talleresServices.GetTallerByIdAsync(id),
               Escoger_Alumnos= await _alumnosServices.GetAlumnos(),
-
+              
 
             };
             return View(alumnos_en_Taller);

@@ -48,6 +48,14 @@ namespace AkademiaV2.Services
             return colaboradores;
         }
 
+        public async Task<List<Colaboradores>> GetFacilitadoresAsync()
+        {
+            _context.Colaboradores.Include(o => o.Akademia);
+            var colaboradores = await _context.Colaboradores.OrderBy(o=>o.Nombre).Where(o=>o.TipoColaborador=="Facilitador"||o.TipoColaborador=="Ambos")
+                .Include(o=>o.BusquedaFacilitadores).ToListAsync();
+            return colaboradores;
+        }
+
         public async Task UpdateColaboradorAsync(Colaboradores colaboradores)
         {
             _context.Update(colaboradores);

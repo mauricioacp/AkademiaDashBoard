@@ -7,33 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AkademiaV2.Data;
 using AkademiaV2.Models;
-using AkademiaV2.Services;
-using Microsoft.AspNetCore.Authorization;
 
 namespace AkademiaV2.Controllers
 {
-    public class AkademiasController : Controller
+    public class SesionesController : Controller
     {
-        private readonly IAkademia _akademiaServices;
+        private readonly AkademiaSystem _context;
 
-        public AkademiasController(IAkademia akademiaServices)
+        public SesionesController(AkademiaSystem context)
         {
-            _akademiaServices = akademiaServices;
+            _context = context;
         }
 
-        // GET: Alumnos
+        // GET: Sesiones
         public async Task<IActionResult> Index()
         {
-            return View(await _akademiaServices.GetAkademiaVM());
+            return View(await _context.Sesiones.ToListAsync());
         }
 
-
-        public async Task<IActionResult> FacilitadoresAkademia()
-        {
-            return View(await _akademiaServices.GetAkademiaVM());
-        }
-
-        // GET: Alumnos/Details/5
+        // GET: Sesiones/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -41,41 +33,39 @@ namespace AkademiaV2.Controllers
                 return NotFound();
             }
 
-            var akademia = await _akademiaServices.GetAkademiaByIdAsync(id);
-
-            if (akademia == null)
+            var sesiones = await _context.Sesiones
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (sesiones == null)
             {
                 return NotFound();
             }
 
-            return View(akademia);
+            return View(sesiones);
         }
 
-        // GET: Alumnos/Create
-        [Authorize(Roles = "SuperAdmin")]
+        // GET: Sesiones/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Alumnos/Create
+        // POST: Sesiones/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "SuperAdmin")]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Apellidos,Imagen,Email,Telefono,CartaMotivacional,FechaNacimiento,Comentarios,Edicion")]Akademia akademia)
+        public async Task<IActionResult> Create([Bind("Id,FechaSesion,Evaluacion,Comentario,Edicion")] Sesiones sesiones)
         {
             if (ModelState.IsValid)
             {
-                await _akademiaServices.CreateAkademiaAsync(akademia);
-
+                _context.Add(sesiones);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(akademia);
+            return View(sesiones);
         }
 
-        // GET: Alumnos/Edit/5
+        // GET: Sesiones/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -83,22 +73,22 @@ namespace AkademiaV2.Controllers
                 return NotFound();
             }
 
-            var akademia = await _akademiaServices.GetAkademiaByIdAsync(id);
-            if (akademia == null)
+            var sesiones = await _context.Sesiones.FindAsync(id);
+            if (sesiones == null)
             {
                 return NotFound();
             }
-            return View(akademia);
+            return View(sesiones);
         }
 
-        // POST: Alumnos/Edit/5
+        // POST: Sesiones/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellidos,Imagen,Email,Telefono,CartaMotivacional,FechaNacimiento,Comentarios,Edicion")] Akademia akademia)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FechaSesion,Evaluacion,Comentario,Edicion")] Sesiones sesiones)
         {
-            if (id != akademia.Id)
+            if (id != sesiones.Id)
             {
                 return NotFound();
             }
@@ -107,12 +97,12 @@ namespace AkademiaV2.Controllers
             {
                 try
                 {
-                    await _akademiaServices.UpdateAkademiaAsync(akademia);
-
+                    _context.Update(sesiones);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!_akademiaServices.AkademiaExists(akademia.Id))
+                    if (!SesionesExists(sesiones.Id))
                     {
                         return NotFound();
                     }
@@ -123,10 +113,10 @@ namespace AkademiaV2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(akademia);
+            return View(sesiones);
         }
 
-        // GET: Alumnos/Delete/5
+        // GET: Sesiones/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,25 +124,30 @@ namespace AkademiaV2.Controllers
                 return NotFound();
             }
 
-            var akademia = await _akademiaServices.GetAkademiaByIdAsync(id);
-
-            if (akademia == null)
+            var sesiones = await _context.Sesiones
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (sesiones == null)
             {
                 return NotFound();
             }
 
-            return View(akademia);
+            return View(sesiones);
         }
 
-        // POST: Alumnos/Delete/5
+        // POST: Sesiones/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var akademia = await _akademiaServices.GetAkademiaByIdAsync(id);
-            await _akademiaServices.DeleteAkademiaAsync(akademia);
-
+            var sesiones = await _context.Sesiones.FindAsync(id);
+            _context.Sesiones.Remove(sesiones);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        private bool SesionesExists(int id)
+        {
+            return _context.Sesiones.Any(e => e.Id == id);
         }
     }
 }

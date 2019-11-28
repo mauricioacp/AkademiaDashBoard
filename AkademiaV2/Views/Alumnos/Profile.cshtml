@@ -1,0 +1,111 @@
+﻿@model AkademiaV2.Models.Alumnos
+
+
+<div class="container animatedParent animateOnce">
+    <div class="invoice white shadow">
+        <div class="p-5">
+            <!-- title row -->
+            <div class="row">
+                <div class="col-12">
+                    <img class="w-80px mb-5" src="@Model.Imagen" alt="@Model.Nombre">
+
+                    <div class="float-right">
+                        <h4>Confirmar Alumno </h4><br>
+
+                        <table>
+                            <tr>
+                                <td class="font-weight-normal">Acompañante:</td>
+                                <td>@Model.Colaborador.Nombre</td>
+
+                            </tr>
+                            <tr>
+                                <td class="font-weight-normal">Delegación:</td>
+                                <td>@Model.Akademia.Ciudad</td>
+                            </tr>
+                            <tr>
+                                <td class="font-weight-normal">Edición</td>
+                                <td> @Model.Akademia.Edicion</td>
+                            </tr>
+                            <tr>
+                                <td class="font-weight-normal">Carpeta Principal</td>
+                                <td><a href="@Model.Comentarios"><i class="icon-document"></i></a></td>
+
+                            </tr>
+                        </table>
+
+                    </div>
+
+                </div>
+                <!-- /.col -->
+            </div>
+
+
+
+            <!-- info row -->
+            <div class="row my-3 ">
+                <div class="col-sm-4">
+
+                    <address>
+                        <strong>Nombre:</strong><br>
+                        Apellidos:<br>
+                        Email:<br>
+                        Fecha de Nacimiento:<br>
+                        Teléfono:
+                    </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4">
+
+                    <address>
+                        <strong>@Model.Nombre</strong><br>
+                        @Model.Apellidos <br>
+                        @Model.Email<br>
+                        @Model.FechaNacimiento<br>
+                        @Model.Telefono
+                    </address>
+                </div>
+
+                <!-- /.col -->
+                <div class="col-sm-4">
+
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+            <!-- Table row -->
+            <div class="row my-3">
+                <div class="col-12 table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Sesión</th>
+                                <th>Acompañante</th>
+                                <th>Fecha</th>
+                                <th>Evaluación</th>
+                                <th>Comentarios</th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                @foreach (Sesiones item in Model.Sesiones)
+                                {
+
+                                <td><a asp-controller="Sesiones" asp-action="Registro" asp-route-id="@item.Id">@item.Id</a></td>
+                                    <td>@item.Colaborador.Nombre</td>
+                                    <td>@item.FechaSesion</td>
+                                    <td><a href="@item.Evaluacion"> <i class="icon-document-certificate">n</i></a></td>
+                                    <td><a href="@item.Comentario"> <i class="icon-document-add2"></i></a></td>
+
+                                }
+                            </tr>
+
+                               
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.col -->
+            </div>
+        </div>
+    </div>
+</div>

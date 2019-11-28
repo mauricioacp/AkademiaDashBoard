@@ -1,5 +1,6 @@
 ﻿using AkademiaV2.Data;
 using AkademiaV2.Models;
+using AkademiaV2.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -36,8 +37,27 @@ namespace AkademiaV2.Services
 
         public async Task<List<Akademia>> GetAkademiaAsync()
         {
-            var akademia = await _context.Akademia.Include(o => o.Colaboradores).Include(o => o.Talleres).ToListAsync();
+            var akademia = await _context.Akademia.Include(o=>o.Alumnos)
+                .Include(o => o.Talleres).Include(o => o.Colaboradores).ToListAsync();
             
+            return akademia;
+        }
+
+        public async Task<AkademiaVM> GetAkademiaVM()
+        {
+           AkademiaVM akademia=new AkademiaVM
+            {
+                AlumnosTalleres = await _context.AlumnosTalleres.ToListAsync(),
+                Facilitadores = await _context.ColaboradoresTalleres.ToListAsync(),
+                Talleres = await _context.Talleres.ToListAsync(),
+                Alumnos= await _context.Alumnos.ToListAsync(),
+                
+                Colaboradores= await _context.Colaboradores.ToListAsync(),
+                Akademias= await _context.Akademia.ToListAsync()
+                
+
+            };
+
             return akademia;
         }
 

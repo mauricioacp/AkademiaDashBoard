@@ -37,7 +37,7 @@ namespace AkademiaV2.Services
 
         public async Task<Alumnos> GetAlumnoByIdAsync(int? id)
         {
-            return await _context.Alumnos.FirstOrDefaultAsync(m => m.Id == id);
+            return await _context.Alumnos.Include(o=>o.Sesiones).Include(o=>o.Colaborador).Include(o=>o.Akademia).FirstOrDefaultAsync(m => m.Id == id);
         }
 
         public async Task<List<Alumnos>> GetSeveralAlumnosById(int [] alumnosid)
@@ -53,7 +53,7 @@ namespace AkademiaV2.Services
         public async Task<List<Alumnos>> GetAlumnos()
         {
             var alumnos = await _context.Alumnos.OrderBy(x => x.Nombre).ToListAsync();
-            alumnos = await _context.Alumnos.Include(o => o.Colaborador).ThenInclude(o=>o.Akademia).ToListAsync();
+            alumnos = await _context.Alumnos.Include(o=>o.AlumnosTalleres).Include(m=>m.Sesiones).Include(o => o.Colaborador).ThenInclude(o=>o.Akademia).ToListAsync();
             return alumnos;
           
         }

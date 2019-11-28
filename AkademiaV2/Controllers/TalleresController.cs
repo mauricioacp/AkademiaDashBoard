@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AkademiaV2.Data;
 using AkademiaV2.Models;
+using AkademiaV2.Models.ViewModels;
 using AkademiaV2.Services;
 
 namespace AkademiaV2.Controllers
@@ -24,6 +25,11 @@ namespace AkademiaV2.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _talleresServices.GetTalleresAsync());
+        }
+
+        public async Task<IActionResult> ListaTalleres()
+        {
+            return View(await _talleresServices.GetVM());
         }
 
         // GET: Talleres/Details/5

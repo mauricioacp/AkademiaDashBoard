@@ -117,7 +117,7 @@
                                     <a href="#">
                                         <i class="icon icon-profile-2 s-24"></i>
                                         <span>Colaboradores</span>
-                                        <span class="badge r-3 badge-primary pull-right">4</span>
+                                        <span class="badge r-3 badge-primary pull-right">39</span>
                                     </a>
                                     <ul class="treeview-menu">
                                         <li>
@@ -126,32 +126,27 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a asp-controller="Colaboradores" asp-action="Facilitadores">
+                                            <a asp-controller="Akademias" asp-action="FacilitadoresAkademia">
                                                 <i class="icon icon-add"></i>Facilitadores
                                             </a>
                                         </li>
                                         <li>
-                                            <a asp-controller="Colaboradores" asp-action="Acompañantes">
+                                            <a asp-controller="Alumnos" asp-action="MostrarColaborador">
                                                 <i class="icon icon-add"></i>Acompañantes
                                             </a>
                                         </li>
-                                        <li>
-                                            <a asp-controller="Colaboradores" asp-action="Busqueda"><i class="icon icon-user"></i>Buscar</a>
-                                        </li>
+                                      
                                     </ul>
                                 </li>
                                 <li class="treeview">
                                     <a href="#">
                                         <i class="icon icon-account_box s-24"></i>Alumnos<i class=" icon-angle-left  pull-right"></i>
+                                        <span class="badge r-3 badge-primary pull-right">25</span>
                                     </a>
                                     <ul class="treeview-menu">
                                         <li>
                                             <a asp-controller="Alumnos" asp-action="Index"><i class="icon icon-circle-o"></i>Todos</a>
                                         </li>
-                                        <li>
-                                            <a asp-controller="Alumnos" asp-action="Create"><i class="icon icon-circle-o"></i>Crear</a>
-                                        </li>
-
                                     </ul>
                                 </li>
                                 <li class="treeview">
@@ -159,16 +154,14 @@
                                         <i class="icon icon-book-bookmark s-24"></i>
                                         <i class=" icon-angle-left  pull-right"></i>
                                         <span>Talleres</span>
+                                        <span class="badge r-3 badge-primary pull-right">33</span>
                                     </a>
                                     <ul class="treeview-menu">
                                         <li>
-                                            <a asp-controller="Talleres" asp-action="Index"><i class="icon icon-circle-o"></i>Todos</a>
+                                            <a asp-controller="Talleres" asp-action="ListaTalleres"><i class="icon icon-circle-o"></i>Todos</a>
                                         </li>
                                         <li>
                                             <a asp-controller="Talleres" asp-action="Create"><i class="icon icon-circle-o"></i>Crear</a>
-                                        </li>
-                                        <li>
-                                            <a asp-controller="Talleres" asp-action="Busqueda"><i class="icon icon-add"></i>Buscar</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -313,19 +306,21 @@
                                             }
                                         </div>
                                     }
-
+                                    
                                 </div>
                             </div>
+                            
 
                         </div>
-
+                        
 
                     </div>
-
+                    
                 </div>
            </div>
+            
         </aside>
-
+        </div>
         <div class="has-sidebar-left">
             <div class="pos-f-t">
                 <div class="collapse" id="navbarToggleExternalContent">

@@ -1,9 +1,6 @@
-﻿@model IEnumerable<AkademiaV2.Models.Akademia>
+﻿@model AkademiaV2.Models.ViewModels.AkademiaVM
 
-@{
-    ViewData["Title"] = "Index";
-}
-@foreach (Akademia item in Model)
+@foreach (Akademia item in Model.Akademias)
                         {
     <header class="white pt-3 relative shadow">
         <div class="container-fluid">
@@ -57,39 +54,7 @@
                                 <li class="list-group-item"><i class="icon icon-web text-danger"></i> <strong class="s-12">Website</strong> <span class="float-right s-12">akademy-systems.com</span></li>
                             </ul>
                         </div>
-                        <div class="card mt-3 mb-3">
-                            <div class="card-header bg-white">
-                                <strong class="card-title">Usuario</strong>
-
-                            </div>
-                            <ul class="no-b">
-                                <li class="list-group-item">
-                                    <a href="">
-                                        <div class="image mr-3  float-left">
-                                            <img class="user_avatar" src="" alt="">
-                                        </div>
-                                        <h6 class="p-t-10">Alexander Pierce</h6>
-                                        <span><i class="icon-mobile-phone"></i>num user</span>
-                                    </a>
-                                </li>
-                            </ul>
-
-                            <div class="card-header bg-white">
-                                <strong class="card-title">Coordinadores</strong>
-                            </div>
-                            <div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <div class="image mr-3  float-left">
-                                            <img class="user_avatar" src="" alt="">
-                                        </div>
-                                        <h6 class="p-t-10">Nombre</h6>
-                                        <span> Área</span>
-                                    </li>
-                                </ul>
-                            </div>
-
-                        </div>
+                      
 
                     </div>
                     <div class="col-md-9">
@@ -125,51 +90,62 @@
                                         </div>
                                         <div class="counter-title">Colaboradores</div>
                                     
-                                        @*<h5 class="sc-counter mt-3">@item.Colaboradores.Count().ToString()</h5>*@
+                                        <h5 class="sc-counter mt-3">@item.Colaboradores.Count()</h5>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="row my-3">
-                            <!-- bar charts group -->
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-header white">
-                                        <h6>Attendance <small>Sessions</small></h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <div id="graphx" class="height-300"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /bar charts group -->
-
-
-                        </div>
+                        <br />
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="card">
                                     <div class="card-header white">
-                                        <h6>Colaboradores <span class="badge badge-success r-3">40+</span></h6>
+                                        <h6>Colaboradores <span class="badge badge-success r-3">@item.Colaboradores.Count()</span></h6>
                                     </div>
                                     <div class="card-body">
                                         <ul class="list-inline mt-3">
                                             @foreach (Colaboradores colaboradores in item.Colaboradores)
                                             {
 
-                                            <li class="list-inline-item ">
+                                                <li class="list-inline-item ">
 
-                                                <div class="avatar avatar-md mr-3 mb-2 mt-1">
-                                                    <img src="@colaboradores.Imagen" alt="@colaboradores.Nombre">
-                                                </div>
-                                                <a asp-controller="Colaboradores" asp-action="Profile" asp-route-id="@colaboradores.Id"><i class="icon-eye mr-3"></i></a>
-                                            </li>
+                                                    <div class="avatar avatar-md mr-3 mb-2 mt-1">
+
+                                                        <a asp-controller="Colaboradores" asp-action="Profile" asp-route-id="@colaboradores.Id">    <img src="@colaboradores.Imagen" alt="@colaboradores.Nombre"></a>
+                                                    </div>
+                                                </li>
                                             }
 
 
-                                                        
-                                                
+
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header white">
+                                        <h6>Alumnos <span class="badge badge-success r-3">40+</span></h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-inline mt-3">
+                                            @foreach (Alumnos alumnos in item.Alumnos)
+                                            {
+
+                                                <li class="list-inline-item ">
+
+                                                    <div class="avatar avatar-md mr-3 mb-2 mt-1">
+
+                                                        <a asp-controller="Alumnos" asp-action="Profile" asp-route-id="@alumnos.Id"><img src="@alumnos.Imagen" alt="@alumnos.Nombre"></a>
+                                                    </div>
+                                                </li>
+                                            }
+
+
+
+
                                         </ul>
                                     </div>
                                 </div>
@@ -178,6 +154,7 @@
                     </div>
                 </div>
             </div>
+            <br />
             <div class="tab-pane fade" id="v-pills-payments" role="tabpanel" aria-labelledby="v-pills-payments-tab">
 
                 <div class="card my-3 no-b">
@@ -202,11 +179,15 @@
                                 <tr>
                                     <td>
                                         <div class="avatar avatar-md mr-3 mb-2 mt-1">
-                                            <img src="" alt="">
+                                            @foreach (ColaboradoresTalleres facilitadores  in Model.Facilitadores.Where(o=>o.TalleresId==talleres.Id))
+                                            {
+                                                    <img src="@facilitadores.Colaboradores.Imagen" alt="@facilitadores.Colaboradores.Nombre">
+                                               
+                                        }
                                         </div>
                                     </td>
                                     <td>@talleres.Nombre</td>
-                                    <td><a href="@talleres.Karrusel">Link</a></td>
+                                    <td><a href="@talleres.Karrusel"><i class="icon-document-certificate"></i></a></td>
                                     <td>@talleres.FechaTaller.ToShortDateString()</td>
                                     @if (talleres.FechaTaller < DateTime.Now)
                                     {
@@ -237,56 +218,38 @@
             </div>
 
             <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-                <form class="form-horizontal">
+                <form asp-action="Edit" class="form-horizontal">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="@item.Id" />
                     <div class="form-group">
-                        <label for="inputNamea" class="col-sm-2 control-label">Name</label>
-
-                        <div class="col-sm-10">
-                            <input class="form-control" id="inputNamea" placeholder="Name" type="email">
-                        </div>
+                        <label asp-for="@item.Edicion" class="control-label"></label>
+                        <input asp-for="@item.Edicion" class="form-control" />
+                        <span asp-validation-for="@item.Edicion" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail" class="col-sm-2 control-label">Email</label>
-
-                        <div class="col-sm-10">
-                            <input class="form-control" id="inputEmail" placeholder="Email" type="email">
-                        </div>
+                        <label asp-for="@item.Ciudad" class="control-label"></label>
+                        <input asp-for="@item.Ciudad" class="form-control" />
+                        <span asp-validation-for="@item.Ciudad" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label for="inputName" class="col-sm-2 control-label">Name</label>
-
-                        <div class="col-sm-10">
-                            <input class="form-control" id="inputName" placeholder="Name" type="text">
-                        </div>
+                        <label asp-for="@item.Direccion" class="control-label"></label>
+                        <input asp-for="@item.Direccion" class="form-control" />
+                        <span asp-validation-for="@item.Direccion" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
-
-                        <div class="col-sm-10">
-                            <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
-                        </div>
+                        <label asp-for="@item.Imagen" class="control-label"></label>
+                        <input asp-for="@item.Imagen" class="form-control" />
+                        <span asp-validation-for="@item.Imagen" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label for="inputSkills" class="col-sm-2 control-label">Skills</label>
-
-                        <div class="col-sm-10">
-                            <input class="form-control" id="inputSkills" placeholder="Skills" type="text">
-                        </div>
+                        <label asp-for="@item.Email" class="control-label"></label>
+                        <input asp-for="@item.Email" class="form-control" />
+                        <span asp-validation-for="@item.Email" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                                </label>
-                            </div>
-                        </div>
+                        <input type="submit" value="Save" class="btn btn-primary" />
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-danger">Submit</button>
-                        </div>
-                    </div>
+                  
                 </form>
             </div>
         </div>

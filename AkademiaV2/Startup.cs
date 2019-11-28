@@ -42,7 +42,8 @@ namespace AkademiaV2
             services.AddTransient<ITalleres,TalleresServices>(); 
             services.AddTransient<IAkademia,AkademiaServices>();
             services.AddTransient<IAlumnosTalleres,AlumnosTalleresServices>();
-          
+            services.AddTransient<IColaboradoresTalleres, ColaboradoresTalleresServices>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

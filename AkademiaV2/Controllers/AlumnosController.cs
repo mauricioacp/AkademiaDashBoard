@@ -50,6 +50,24 @@ namespace AkademiaV2.Controllers
             return View(alumnos);
         }
 
+
+        public async Task<IActionResult> Profile(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var alumnos = await _alumnosServices.GetAlumnoByIdAsync(id);
+
+            if (alumnos == null)
+            {
+                return NotFound();
+            }
+
+            return View(alumnos);
+        }
+
         // GET: Alumnos/Create
         [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Create()
@@ -61,6 +79,12 @@ namespace AkademiaV2.Controllers
 
             };
             return View(alumnoColaborador);
+        }
+        [Authorize(Roles = "SuperAdmin")]
+        public async Task<IActionResult> MostrarColaborador()
+        {
+
+            return View(await _alumnosServices.GetAlumnos());
         }
 
         // POST: Alumnos/Create

@@ -1,0 +1,101 @@
+﻿@model List<AkademiaV2.Models.Alumnos>
+
+    <div class="container-fluid animatedParent animateOnce">
+        <div class="tab-content my-3" id="v-pills-tabContent">
+            <div class="tab-pane animated fadeInUpShort show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
+                <div class="row my-3">
+                    <div class="col-md-12">
+                        <div class="card r-0 shadow">
+                            <div class="table-responsive">
+                                <form>
+                                    <table class="table table-striped table-hover r-0">
+                                        <thead>
+                                            <tr class="no-b">
+                                                <th style="width: 30px">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" id="checkedAll" class="custom-control-input"><label class="custom-control-label" for="checkedAll"></label>
+                                                    </div>
+                                                </th>
+                                                <th>Acompañante</th>
+
+                                                <th> <div class="d-none d-lg-block">Sesiones</div></th>
+                                                <th> <div class="d-none d-lg-block">Teléfono</div></th>
+                                                <th> <div class="d-none d-lg-block">Cloud</div></th>
+                                                <th> <div class="d-none d-lg-block">Estado Acomp.</div></th>
+                                                <th> <div class="d-none d-lg-block">Alumno</div></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            @foreach (Alumnos alumno in Model)
+                                            {
+
+                                                <tr>
+                                                    <td>
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input checkSingle"
+                                                                   id="user_id_32" required><label class="custom-control-label" for="user_id_1"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <div class="avatar avatar-md mr-3 mb-2 mt-1">
+                                                                <a asp-controller="Colaboradores" asp-action="Profile" asp-route-id="@alumno.Colaborador.Id"> <img src="@alumno.Colaborador.Imagen" alt="@alumno.Colaborador.Nombre" /></a>   
+                                                            </div>
+                                                            <div>
+                                                                <div>
+                                                                    <strong>@alumno.Colaborador.Nombre</strong>
+                                                                </div>
+                                                                <small>@alumno.Colaborador.Email</small>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                    <td> <div class="d-none d-lg-block">@alumno.Sesiones.Count()</div></td>
+                                                    <td> <div class="d-none d-lg-block">@alumno.Colaborador.Telefono</div></td>
+                                                    <td> <div class="d-none d-lg-block"> <a href="@alumno.Colaborador.CloudCarpetaPrincipal"><i class="icon-document mr-3"></i></a></div></td>
+                                                    @if (alumno.Sesiones.Count > 1)
+                                                    {
+                                                        <td> <div class="d-none d-lg-block"><span class="r-3 badge badge-success ">Sesiones: @alumno.Sesiones.Count()</span></div></td>
+                                                        <td>
+
+                                                            <div class="avatar avatar-md mr-3 mb-2 mt-1">
+                                                                <a asp-controller="Alumnos" asp-action="Profile" asp-route-id="@alumno.Id"><img src="@alumno.Imagen" alt="@alumno.Nombre" /></a>
+                                                            </div>
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+
+                                                        <td> <div class="d-none d-lg-block"><span class="icon icon-circle s-12  mr-2 text-warning"></span>Sesiones: @alumno.Sesiones.Count()</div></td>
+                                                        <td>
+
+                                                            <div class="avatar avatar-md mr-3 mb-2 mt-1">
+                                                                <a asp-controller="Alumnos" asp-action="Profile" asp-route-id="@alumno.Id"><img src="@alumno.Imagen" alt="@alumno.Nombre" /></a>
+                                                            </div>
+                                                        </td>
+
+                                                    }
+
+                                                    <td>
+                                                        <a asp-controller="Alumnos" asp-action="Profile" asp-route-id="@alumno.Colaborador.Id"><i class="icon-eye mr-3"></i></a>
+                                                        <a asp-controller="Alumnos" asp-action="Edit" asp-route-id="@alumno.Colaborador.Id"><i class="icon-pencil"></i></a>
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Add New Message Fab Button-->
+            <a asp-controller="Colaboradores" asp-action="Create" class="btn-fab btn-fab-md fab-right fab-right-bottom-fixed shadow btn-primary">
+                <i class="icon-add"></i>
+            </a>
+        </div>
+    </div>

@@ -1,10 +1,10 @@
-﻿@model AkademiaV2.Models.ViewModels.Alumnos_en_TallerVM
+﻿@model AkademiaV2.Models.ViewModels.Colab_Taller_AsistentesVM
 
 
 <div class="row">
     <div class="col-md-4">
 
-        <form asp-controller="AlumnosTalleres" asp-action="CreateTaller_Alumnos">
+        <form asp-controller="ColaboradoresTalleres" asp-action="CreateTaller_Colaboradores">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Taller" class="control-label"></label>
@@ -15,22 +15,31 @@
 
             </div>
             <div class="form-group">
-                <label asp-for="Escoger_Alumnos" class="control-label"></label>
+                <label asp-for="Escoger_Facilitadores" class="control-label"></label>
 
                 <label>Seleccionar todos</label>
                 <input class="lobilist-check" type="checkbox" id="select_all" />
-                @foreach (Alumnos alumnos in Model.Escoger_Alumnos)
+                @foreach (Colaboradores facilitador in Model.Escoger_Facilitadores)
                 {
-                    <label>@alumnos.Nombre @alumnos.Apellidos</label>
+                    <label>@facilitador.Nombre @facilitador.Apellidos</label>
+                    <div class="custom-control custom-checkbox">
+                      
+                        <input class="custom-control" type="checkbox" name="facilitadores_id" id="@facilitador.Id" value="@facilitador.Id" />
+                    </div>
+                     
 
-                    <input class="lobilist-check" type="checkbox" name="alumnos_id" id="@alumnos.Id" value="@alumnos.Id" />
+                    @*<div class="custom-file">
+                        <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                        <div class="invalid-feedback">Example invalid custom file feedback</div>
+                    </div>*@
 
 
                 }
 
                 <script>
                     var select_all = document.getElementById("select_all"); //select all checkbox
-                    var checkboxes = document.getElementsByClassName("lobilist-check"); //checkbox items
+                    var checkboxes = document.getElementsByClassName("custom-control"); //checkbox items
 
                     //select all checkboxes
                     select_all.addEventListener("change", function (e) {
@@ -62,7 +71,5 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 

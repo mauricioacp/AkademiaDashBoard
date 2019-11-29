@@ -18,13 +18,15 @@ namespace AkademiaV2.Controllers
         private readonly IAlumnos _alumnosServices;
         private readonly ITalleres _talleresServices;
         private readonly IAlumnosTalleres _alumnosTalleresServices;
+        private readonly IColaboradoresTalleres _colaboradoresTalleresServices;
 
-        public AlumnosTalleresController(ITalleres talleresServices, IAlumnos alumnosServices,IAlumnosTalleres alumnosTalleres)
+
+        public AlumnosTalleresController(ITalleres talleresServices, IAlumnos alumnosServices,IAlumnosTalleres alumnosTalleres, IColaboradoresTalleres colaboradoresTalleresServices)
         {
             _alumnosServices = alumnosServices;
             _talleresServices = talleresServices;
             _alumnosTalleresServices = alumnosTalleres;
-
+            _colaboradoresTalleresServices = colaboradoresTalleresServices;
         }
 
 
@@ -100,6 +102,7 @@ namespace AkademiaV2.Controllers
             {
                 Taller = await _talleresServices.GetTallerByIdAsync(id),
                 Escoger_Alumnos = alumnos_entaller,
+                Facilitadores= await _colaboradoresTalleresServices.GetColaboradoresTalleresByTallerId(id),
             };
             return View(Showalumnos_en_Taller);
         }

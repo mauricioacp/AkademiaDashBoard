@@ -7,23 +7,76 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AkademiaV2.Data;
 using AkademiaV2.Models;
+using AkademiaV2.Services;
+using AkademiaV2.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AkademiaV2.Controllers
 {
     public class SesionesController : Controller
     {
-        private readonly AkademiaSystem _context;
+        private readonly IAlumnos _alumnosServices;
+        private readonly IColaboradores _colaboradoresServices;
+        private readonly ISesiones _sesionesServices;
+   
 
-        public SesionesController(AkademiaSystem context)
+        public SesionesController(IAlumnos alumnosServices, IColaboradores colaboradoresServices,ISesiones sesionesServices )
         {
-            _context = context;
+            _alumnosServices = alumnosServices;
+            _colaboradoresServices = colaboradoresServices;
+            _sesionesServices = sesionesServices;
         }
 
         // GET: Sesiones
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Sesiones.ToListAsync());
+            return View(await _sesionesServices.GetSesionesAsync());
         }
+
+        public async Task<IActionResult> RegistroSesiones()
+        {
+            Sesiones_Alumnos_Colab_VM sesiones_Alumnos_Colab_VM = new Sesiones_Alumnos_Colab_VM
+            {
+                EscogerAlumno = await _alumnosServices.GetAlumnos(),
+              
+
+            };
+
+            return View(sesiones_Alumnos_Colab_VM);
+        }
+
+
+        [Authorize(Roles = "SuperAdmin")]
+        public async Task<IActionResult> CreateRegistro_Sesion(Sesiones_Alumnos_Colab_VM sesiones_Alumnos_Colab_VM, int[] alumnos_id)
+        {
+
+            var alumnos_registro_sesion = await _alumnosServices.GetSeveralAlumnosById(alumnos_id);
+            
+
+
+            foreach(Alumnos alumnos in alumnos_registro_sesion)
+            {
+
+                Sesiones sesiones= new Sesiones
+                {
+                    Alumno = await _alumnosServices.GetAlumnoByIdAsync(alumnos.Id),
+                    Colaborador = await _colaboradoresServices.GetColaboradorByIdAsync(alumnos.Colaborador.Id),
+                    FechaSesion= sesiones_Alumnos_Colab_VM.FechaSesion,
+                    Comentario= sesiones_Alumnos_Colab_VM.Comentario,
+                    Edicion= sesiones_Alumnos_Colab_VM.Edicion,
+                    Evaluacion= sesiones_Alumnos_Colab_VM.Evaluacion,
+                };
+
+                if (ModelState.IsValid)
+                {
+                    await _sesionesServices.CreateSesionesAsync(sesiones);
+
+                }
+            }
+
+            return RedirectToAction("Index", "Talleres");
+        }
+
 
         // GET: Sesiones/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -33,8 +86,8 @@ namespace AkademiaV2.Controllers
                 return NotFound();
             }
 
-            var sesiones = await _context.Sesiones
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var sesiones = await _sesionesServices.GetSesionesByIdAsync(id);
+
             if (sesiones == null)
             {
                 return NotFound();
@@ -58,8 +111,9 @@ namespace AkademiaV2.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(sesiones);
-                await _context.SaveChangesAsync();
+                await _sesionesServices.CreateSesionesAsync(sesiones);
+              
+
                 return RedirectToAction(nameof(Index));
             }
             return View(sesiones);
@@ -73,7 +127,7 @@ namespace AkademiaV2.Controllers
                 return NotFound();
             }
 
-            var sesiones = await _context.Sesiones.FindAsync(id);
+            var sesiones = await _sesionesServices.GetSesionesByIdAsync(id);
             if (sesiones == null)
             {
                 return NotFound();
@@ -97,12 +151,12 @@ namespace AkademiaV2.Controllers
             {
                 try
                 {
-                    _context.Update(sesiones);
-                    await _context.SaveChangesAsync();
+                    await _sesionesServices.UpdateSesionesAsync(sesiones);
+                  
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SesionesExists(sesiones.Id))
+                    if (!_sesionesServices.SesionesExists(sesiones.Id))
                     {
                         return NotFound();
                     }
@@ -124,8 +178,7 @@ namespace AkademiaV2.Controllers
                 return NotFound();
             }
 
-            var sesiones = await _context.Sesiones
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var sesiones = await _sesionesServices.GetSesionesByIdAsync(id);
             if (sesiones == null)
             {
                 return NotFound();
@@ -139,15 +192,12 @@ namespace AkademiaV2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var sesiones = await _context.Sesiones.FindAsync(id);
-            _context.Sesiones.Remove(sesiones);
-            await _context.SaveChangesAsync();
+            var sesiones = await _sesionesServices.GetSesionesByIdAsync(id);
+           await  _sesionesServices.DeleteSesionesAsync(sesiones);
+           
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SesionesExists(int id)
-        {
-            return _context.Sesiones.Any(e => e.Id == id);
-        }
+       
     }
 }

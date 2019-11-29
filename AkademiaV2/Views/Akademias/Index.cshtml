@@ -111,7 +111,7 @@
 
                                                     <div class="avatar avatar-md mr-3 mb-2 mt-1">
 
-                                                        <a asp-controller="Colaboradores" asp-action="Profile" asp-route-id="@colaboradores.Id">    <img src="@colaboradores.Imagen" alt="@colaboradores.Nombre"></a>
+                                                        <a asp-controller="Colaboradores" asp-action="Profile" asp-route-id="@colaboradores.Id"><img src="@colaboradores.Imagen" alt="@colaboradores.Nombre"></a>
                                                     </div>
                                                 </li>
                                             }
@@ -179,11 +179,13 @@
                                 <tr>
                                     <td>
                                         <div class="avatar avatar-md mr-3 mb-2 mt-1">
-                                            @foreach (ColaboradoresTalleres facilitadores  in Model.Facilitadores.Where(o=>o.TalleresId==talleres.Id))
+                                            @foreach (ColaboradoresTalleres facilitadores in Model.Facilitadores.Where(o => o.TalleresId == talleres.Id))
                                             {
-                                                    <img src="@facilitadores.Colaboradores.Imagen" alt="@facilitadores.Colaboradores.Nombre">
-                                               
-                                        }
+                                                <a asp-controller="Colaboradores" asp-action="Profile" asp-route-id="@facilitadores.Colaboradores.Id"><img src="@facilitadores.Colaboradores.Imagen" alt="@facilitadores.Colaboradores.Nombre"></a>
+
+                                                
+
+                                            }
                                         </div>
                                     </td>
                                     <td>@talleres.Nombre</td>

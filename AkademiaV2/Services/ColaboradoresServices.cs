@@ -36,9 +36,8 @@ namespace AkademiaV2.Services
         }
         public async Task<Colaboradores> GetColaboradorByIdAsync(int? id)
         {
-
-            _context.Colaboradores.Include(o => o.Akademia);
-                return await _context.Colaboradores.FirstOrDefaultAsync(m => m.Id == id);
+        
+                return await _context.Colaboradores.Include(o=>o.ColaboradoresTalleres).ThenInclude(o=>o.Taller).FirstOrDefaultAsync(m => m.Id == id);
         }
 
         public async Task<List<Colaboradores>> GetColaboradoresAsync()

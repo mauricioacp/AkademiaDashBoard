@@ -12,5 +12,6 @@ namespace AkademiaV2.Models.ViewModels
         public int TallerId { get; set; }
         public Talleres Taller { get; set; }             
         public List<Alumnos> Escoger_Alumnos { get; set; }
+        public List<ColaboradoresTalleres> Facilitadores { get; set; }
     }
 }

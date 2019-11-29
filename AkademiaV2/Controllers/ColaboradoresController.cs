@@ -16,12 +16,17 @@ namespace AkademiaV2.Controllers
         private readonly IColaboradores _colaboradoresServices;
         private readonly IAkademia _akademiaServices;
         private readonly ITalleres _talleresServices;
+        private readonly IAlumnos _alumnosSerices;
+        private readonly ISesiones _sesionesServices;
 
-        public ColaboradoresController(IColaboradores colaboradoresServices, IAkademia akademiaServices,ITalleres talleresServices)
+
+        public ColaboradoresController(IColaboradores colaboradoresServices, IAkademia akademiaServices,ITalleres talleresServices, IAlumnos alumnosServices,ISesiones sesionesServices)
         {
             _colaboradoresServices = colaboradoresServices;
             _akademiaServices = akademiaServices;
             _talleresServices = talleresServices;
+            _alumnosSerices = alumnosServices;
+            _sesionesServices = sesionesServices;
         }
 
         // GET: Colaboradores
@@ -44,7 +49,7 @@ namespace AkademiaV2.Controllers
 
             var colaborador = await _colaboradoresServices.GetColaboradorByIdAsync(id);
             Akademia akademia = await _akademiaServices.GetAkademiaByIdAsync(1);
-
+            colaborador.Sesiones = await _sesionesServices.GetSesionesByIdColaborador(id);
             colaborador.Akademia = akademia;
 
             if (colaborador == null)
@@ -64,6 +69,7 @@ namespace AkademiaV2.Controllers
             }
 
             var colaborador = await _colaboradoresServices.GetColaboradorByIdAsync(id);
+          
           
             if (colaborador== null)
             {

@@ -38,7 +38,7 @@ namespace AkademiaV2.Services
         public async Task<List<Akademia>> GetAkademiaAsync()
         {
             var akademia = await _context.Akademia.Include(o=>o.Alumnos)
-                .Include(o => o.Talleres).Include(o => o.Colaboradores).ToListAsync();
+                .Include(o => o.Talleres).Include(o => o.Colaboradores).ThenInclude(o=>o.Sesiones).ToListAsync();
             
             return akademia;
         }

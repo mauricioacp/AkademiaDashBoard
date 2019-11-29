@@ -54,10 +54,11 @@
                                                         if (facilitadores.Colaboradores.Imagen.Count() >= 2)
                                                         {
 
-                                                            <div class="avatar avatar-sm mr-3 mb-2 mt-1">
-                                                                <img src="@facilitadores.Colaboradores.Imagen" alt="@facilitadores.Colaboradores.Nombre" />
+                                                    <div class="avatar avatar-sm mr-3 mb-2 mt-1">
+                                                        <a asp-controller="Colaboradores" asp-action="Profile" asp-route-id="@facilitadores.Colaboradores.Id"><img src="@facilitadores.Colaboradores.Imagen" alt="@facilitadores.Colaboradores.Nombre"></a>
+                                                        @*<img src="@facilitadores.Colaboradores.Imagen" alt="@facilitadores.Colaboradores.Nombre" />*@
 
-                                                            </div>
+                                                    </div>
 
                                                         }
                                                         else

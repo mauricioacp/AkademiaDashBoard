@@ -1,0 +1,80 @@
+﻿@model AkademiaV2.Models.ViewModels.Sesiones_Alumnos_Colab_VM
+<br />
+<h1>RegistroSesiones</h1>
+
+<h4>Sesiones</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+     
+
+
+        <form asp-action="CreateRegistro_Sesion">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FechaSesion" class="control-label"></label>
+                <input asp-for="FechaSesion" type="date" asp-format="{0:d}" class="form-control" />
+                <span asp-validation-for="FechaSesion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Evaluacion" class="control-label"></label>
+                <input asp-for="Evaluacion" class="form-control" />
+                <span asp-validation-for="Evaluacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comentario" class="control-label"></label>
+                <input asp-for="Comentario" class="form-control" />
+                <span asp-validation-for="Comentario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Edicion" class="control-label"></label>
+                <input asp-for="Edicion" class="form-control" />
+                <span asp-validation-for="Edicion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+
+
+            @foreach (Alumnos alumnos in Model.EscogerAlumno)
+            {
+                <label>@alumnos.Nombre @alumnos.Apellidos</label>
+                <label>@alumnos.Colaborador.Nombre </label>
+                <input class="lobilist-check" type="checkbox" name="alumnos_id" id="@alumnos.Id" value="@alumnos.Id" />
+                
+
+
+            }
+
+            <script>
+                var select_all = document.getElementById("select_all"); //select all checkbox
+                var checkboxes = document.getElementsByClassName("lobilist-check"); //checkbox items
+
+                //select all checkboxes
+                select_all.addEventListener("change", function (e) {
+                    for (i = 0; i < checkboxes.length; i++) {
+                        checkboxes[i].checked = select_all.checked;
+                    }
+                });
+
+
+                for (var i = 0; i < checkboxes.length; i++) {
+                    checkboxes[i].addEventListener('change', function (e) { //".checkbox" change
+                        //uncheck "select all", if one of the listed checkbox item is unchecked
+                        if (this.checked == false) {
+                            select_all.checked = false;
+                        }
+                        //check "select all" if all checkbox items are checked
+                        if (document.querySelectorAll('.checkbox:checked').length == checkboxes.length) {
+                            select_all.checked = true;
+                        }
+                    });
+                }
+            </script>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

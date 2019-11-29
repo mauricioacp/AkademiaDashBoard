@@ -58,39 +58,7 @@
                                 <li class="list-group-item"><i class="icon icon-web text-danger"></i> <strong class="s-12">Website</strong> <span class="float-right s-12">@Model.TipoColaborador</span></li>
                             </ul>
                         </div>
-                        <div class="card mt-3 mb-3">
-                            <div class="card-header bg-white">
-                                <strong class="card-title">Acompañado</strong>
-
-                            </div>
-                            <ul class="no-b">
-                                <li class="list-group-item">
-                                    <a href="">
-                                        <div class="image mr-3  float-left">
-                                            <img class="user_avatar" src="" alt="Alumno">
-                                        </div>
-                                        <h6 class="p-t-10">@Model.Sesiones "Sesiones"</h6>
-                                        <span><i class="icon-mobile-phone"></i>Alumno número?</span>
-                                    </a>
-                                </li>
-                            </ul>
-
-                            <div class="card-header bg-white">
-                                <strong class="card-title">Talleres</strong>
-                            </div>
-                            <div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <div class="image mr-3  float-left">
-                                            <img class="user_avatar" src="assets/img/dummy/u1.png" alt="User Image">
-                                        </div>
-                                        <h6 class="p-t-10">Alexander Pierce</h6>
-                                        <span> 4th Grade</span>
-                                    </li>
-                                </ul>
-                            </div>
-
-                        </div>
+                    
 
                     </div>
                     <div class="col-md-9">
@@ -132,26 +100,51 @@
                         </div>
 
                         <div class="row my-3">
+                            @if (Model.TipoColaborador == "Acompañante")
+                            {
 
+                            }
+                            else
+                            {
+                                @foreach (ColaboradoresTalleres item in Model.ColaboradoresTalleres)
+                                {
+
+                                    <div class="card-header bg-white">
+                                        <strong class="card-title">Talleres</strong>
+                                    </div>
+                                    <div>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+
+                                                <h6 class="p-t-10">@item.Taller.Nombre</h6>
+                                                <span>@item.Colaboradores.Nombre</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                }
+                            }
 
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card">
-                                    <div class="card-header white">
-                                        <h6>New Followers <span class="badge badge-success r-3">30+</span></h6>
+                                        <div class="card-header white">
+                                            <h6>Alumnos acompañados: <span class="badge badge-success r-3">@Model.Sesiones.Select(o => o.Alumno.Id).Distinct().Count()</span></h6>
+                                            <h6>Sesiones <span class="badge badge-success r-3">#@Model.Sesiones.Count()</span></h6>
+                                        </div>
+                                    @foreach (Alumnos item in Model.Sesiones.Select(o => o.Alumno).Distinct())
+                                    {
+                                        <div class="card-body">
+
+                                            <ul class="list-inline mt-3">
+                                                <li class="list-inline-item ">
+                                                    <img src="@item.Imagen" alt="@item.Nombre" class="img-responsive w-40px circle mb-3">
+                                                    <h6 class="p-t-10">Sesiones #@item.Sesiones.Count()</h6>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    }
                                     </div>
-                                    <div class="card-body">
-
-                                        <ul class="list-inline mt-3">
-                                            <li class="list-inline-item ">
-                                                <img src="assets/img/dummy/u13.png" alt="" class="img-responsive w-40px circle mb-3">
-                                            </li>
-
-
-                                        </ul>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -162,8 +155,8 @@
                     <div class="col-md-12">
                         <div class="card no-b">
                             <div class="card-header white b-0 p-3">
-                                <h4 class="card-title">Invoices</h4>
-                                <small class="card-subtitle mb-2 text-muted">Búsquedas Relativas</small>
+                                <h4 class="card-title">Sesiones</h4>
+                            
                             </div>
                             <div class="collapse show" id="invoiceCard">
                                 <div class="card-body p-0">
@@ -172,21 +165,27 @@
                                                class="table table-hover mb-0 ps-container ps-theme-default">
                                             <thead class="bg-light">
                                                 <tr>
-                                                    <th>Documento</th>
-                                                    <th>Enlace Directo</th>
-                                                    <th>Carpeta</th>
-                                                    <th>Responsabilidad</th>
+                                                    <th>Sesiones</th>
+                                                    <th>Alumno</th>
+                                                    <th>Fecha</th>
+                                                    <th>Evaluación</th>
 
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach (Sesiones item in Model.Sesiones)
+                                                {
+                                                    
+
                                                 <tr>
-                                                    <td>PAP-10521</td>
-                                                    <td><a href="#">INV-281281</a></td>
-                                                    <td>Baja Khan</td>
-                                                    <td><span class="badge badge-success">Paid</span></td>
+
+                                                    <td>@item.Alumno.Sesiones.Count()</td>
+                                                    <td><a asp-controller="Alumnos" asp-action="Profile" asp-route-id="@item.Alumno.Id" >@item.Alumno.Nombre</a></td>
+                                                    <td>@item.FechaSesion</td>
+                                                    <td><a href="@item.Evaluacion"><i class="icon-document-cloud2"></i></a></td>
 
                                                 </tr>
+                                                }
 
                                             </tbody>
                                         </table>
@@ -198,6 +197,7 @@
                 </div>
 
             </div>
+
             <div class="tab-pane fade" id="v-pills-timeline" role="tabpanel" aria-labelledby="v-pills-timeline-tab">
                 <div class="row">
                     <div class="col-md-12">

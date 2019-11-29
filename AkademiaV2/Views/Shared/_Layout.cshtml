@@ -86,13 +86,9 @@
                             <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
                                aria-controls="v-pills-profile" aria-selected="false"><i class="icon-add"></i></a>
                             <a class="nav-link blink skin_handle" href="#"><i class="icon-lightbulb_outline"></i></a>
-
-                            <a href="">
-                                <figure class="avatar">
-                                    <img src="assets/img/dummy/u3.png" alt="">
-                                    <span class="avatar-badge online"></span>
-                                </figure>
-                            </a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="icon-home2"></i></a>
+                              
+                         
                         </div>
                     </div>
 
@@ -135,7 +131,12 @@
                                                 <i class="icon icon-add"></i>Acompañantes
                                             </a>
                                         </li>
-                                      
+                                        <li>
+                                            <a asp-controller="Sesiones" asp-action="RegistroSesiones">
+                                                <i class="icon icon-add"></i>Sesiones Registro
+                                            </a>
+                                        </li>
+
                                     </ul>
                                 </li>
                                 <li class="treeview">
@@ -345,8 +346,9 @@
                     <div class="relative">
                         <div class="d-flex">
                             <div class="d-none d-md-block">
-                                <h1 class="nav-title">Akademia System</h1>
+                                <h4 class="nav-title">Akademia System</h4>
                             </div>
+                                <partial name="_LoginPartial" />
                           
                         </div>
                     </div>
